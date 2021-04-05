@@ -1,1 +1,52 @@
 # Results
+# devtools::install_github("wmurphyrd/fiftystater")
+library(tidyverse)
+library(dplyr)
+library(usmap)
+library(ggplot2)
+
+national_data <-read.csv(file = 'data/clean/National.csv')
+
+raw_data <- readr::read_csv("data/raw/Trips_by_Distance.csv", 
+                            col_types = cols(
+  .default = col_double(),
+  Level = col_character(),
+  Date = col_date(format = ""),
+  `State FIPS` = col_character(),
+  `State Postal Code` = col_character(),
+  `County FIPS` = col_character(),
+  `County Name` = col_character(),
+  `Row ID` = col_character()
+))
+state_data <- dplyr::filter(raw_data, Level == "State")
+state_data <- dplyr::filter(state_data, Date >= "2019-04-01")
+
+stay_per_state <- state_data %>% 
+  group_by(`State Postal Code`) %>% 
+  summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
+  
+stay_per_state$stay_per <- stay_per_state$mean_stay/stay_per_state$mean_notstay
+stay_per_state<-stay_per_state %>% 
+  rename(state = `State Postal Code`)
+
+# Blank state map ####
+blank_state_map <- plot_usmap()
+<!-- state_pop_map_labeled <- -->
+<!--   plot_usmap(data = stay_per_state, values = "stay_per", labels = TRUE) + -->
+<!--   scale_fill_continuous(low = "white", high = "red", guide = FALSE,  name = "Percentage of people staying at home", label = scales::comma) + -->
+<!--   scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))  -->
+
+
+<!-- cowplot::plot_grid( -->
+<!--   state_pop_map_labeled -->
+<!-- ) -->
+
+state_perc_map_labeled <- plot_usmap(data = stay_per_state, values = "stay_per", labels = TRUE) + 
+  scale_fill_continuous(low = "white", high = "blue", name = "Percentage of people at home", label = scales::comma) + 
+  labs(title = "Percentage of people staying at home", subtitle = "Percentage Estimates for people stay at home for each state after 04/2020") +
+  theme(legend.position = "right")
+state_perc_map_labeled$layers[[2]]$aes_params$size <- 3
+print(state_perc_map_labeled)
+
+
+
