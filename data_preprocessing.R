@@ -3,7 +3,7 @@ library(zipcode)
 library(covid19.analytics)
 library(coronavirus)
 
-# Load original data from BTS (2019-01-01~2021-03-20)
+# Load original data of daily transportation from BTS (2019-01-01~2021-03-20)
 raw_data <- readr::read_csv("data/raw/Trips_by_Distance.csv", 
                             col_types = cols(
   .default = col_double(),
@@ -39,6 +39,12 @@ for (s in state){
   csvFileName = paste(c("data/clean/county/", s, ".csv"), collapse = "")
   write.csv( tmp_data, file = csvFileName)
 }
+
+# Load original data of different transportation methods from BTS (2019-04-01~2021-03-01)
+# but data of 2021-03-01 is not recorded yet
+raw_data <- readr::read_csv("data/raw/Monthly_Transportation_Statistics.csv")
+raw_data$Date <- substr(raw_data$Date, 1, 10)
+raw_data$Date <- as.Date(raw_data$Date, format = "%m/%d/%Y")
 
 # Read covid19 data from packages directly
 covid_data <- covid19.data()
