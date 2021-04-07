@@ -45,7 +45,7 @@ library(tidyverse)
 library(dplyr)
 library(usmap)
 library(ggplot2)
-
+library(lubridate)
 
 national_data <- readr::read_csv("data/clean/National.csv", 
                             col_types = cols(
@@ -98,6 +98,8 @@ ggplot(national_data, aes(Date, `Number of Trips`/1000000)) +
 
 ### multiple Cleveland dot plot
 ```{r, fig.height = 6, fig.width = 10}
+library(covid19.analytics)
+library(coronavirus)
 
 covid_data <- covid19.data()
 covid_data <- dplyr::filter(covid_data, Country_Region == "US")
