@@ -1,13 +1,53 @@
 # Results
-# devtools::install_github("wmurphyrd/fiftystater")
+### Percent of people staying at home during COVID-19 pandemic.
+Date after 2020-04-01
+https://github.com/wmurphyrd/fiftystater
+https://github.com/pdil/usmap/blob/master/resources/examples.R
+```{r, fig.height = 6, fig.width = 10}
 library(tidyverse)
 library(dplyr)
 library(usmap)
 library(ggplot2)
 
-national_data <-read.csv(file = 'data/clean/National.csv')
+state_data <- readr::read_csv("data/clean/State.csv")
+state_data <- dplyr::filter(state_data, Date >= "2020-04-01") # to be changed if start date changes
+stay_per_state <- state_data %>% 
+  group_by(`State Postal Code`) %>% 
+  summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
+  
+stay_per_state$stay_per <- stay_per_state$mean_stay/stay_per_state$mean_notstay
+stay_per_state<-stay_per_state %>% 
+  rename(state = `State Postal Code`)
 
-raw_data <- readr::read_csv("data/raw/Trips_by_Distance.csv", 
+state_perc_map_labeled <- plot_usmap(data = stay_per_state, 
+                                     values = "stay_per", labels = TRUE) + 
+  scale_fill_continuous(low = "white", high = "blue", 
+                        name = "Percentage of people at home", label = scales::comma) + 
+  labs(title = "Percentage of people staying at home", 
+       subtitle = "Percentage Estimates for people stay at home for each state after 04/2020") +
+  theme(legend.position = "right")+
+  theme(plot.title = element_text(size = 20, face = "bold"))
+
+state_perc_map_labeled$layers[[2]]$aes_params$size <- 3.5
+print(state_perc_map_labeled)
+```
+
+Note: Did not manage to solve the label overlap problem :(
+
+### Number of daily trips people make nationally.
+
+Time series plot
+
+
+```{r, fig.height = 6, fig.width = 10}
+# r, fig.height = 6, fig.width = 10
+library(tidyverse)
+library(dplyr)
+library(usmap)
+library(ggplot2)
+
+
+national_data <- readr::read_csv("data/clean/National.csv", 
                             col_types = cols(
   .default = col_double(),
   Level = col_character(),
@@ -18,35 +58,82 @@ raw_data <- readr::read_csv("data/raw/Trips_by_Distance.csv",
   `County Name` = col_character(),
   `Row ID` = col_character()
 ))
-state_data <- dplyr::filter(raw_data, Level == "State")
-state_data <- dplyr::filter(state_data, Date >= "2019-04-01")
 
-stay_per_state <- state_data %>% 
+
+#national_data <- dplyr::filter(national_data, Date >= "2019-04-01")
+
+national_weekly <- national_data %>%
+  group_by(Year = year(Date),
+           Week = week(Date)) %>%
+  summarize(AvgWeeklytrips = mean(`Number of Trips`)) %>%
+  mutate(Date = as.Date("2018-12-27")+
+           365*(Year-2019)+
+           7*(Week))
+
+ggplot(national_data, aes(Date, `Number of Trips`/1000000)) + 
+    geom_line(color = "grey50") + 
+    geom_line(data = national_weekly,
+              aes(Date, AvgWeeklytrips/1000000),
+              color = 'blue', lwd = 1.5)+
+    geom_smooth(method = "loess", span = .5, se = FALSE, color = 'deeppink') +
+    annotate('text', x = as.Date('2020-12-15'),
+             y = 1600, label = 'average weekly trips',
+             color = 'blue', hjust = 0) +
+    annotate('segment', x = as.Date('2020-11-28'),
+             xend = as.Date('2020-12-11'), y = 1600,
+             yend = 1600, color = 'blue', lwd = 1.5) +
+    annotate('text', x = as.Date('2020-12-15'),
+             y = 1540, label = 'smoothed daily trips',
+             color = 'deeppink', hjust = 0) +
+    annotate('segment', x = as.Date('2020-11-28'),
+             xend = as.Date('2020-12-11'), y = 1540,
+             yend = 1540, color = 'deeppink', lwd = 1.5) +  
+    annotate('rect', xmin = as.Date('2020-03-13'), xmax = as.Date('2021-03-20'),
+             ymin = -Inf, ymax = Inf, fill = 'wheat',
+             alpha = .2) +
+    ggtitle("Number of trips(National) \n (in millions)") + 
+    labs(x = "Date", y = "Number of trips (in millions)") +
+    theme_bw(16)
+```
+
+### multiple Cleveland dot plot
+```{r, fig.height = 6, fig.width = 10}
+
+covid_data <- covid19.data()
+covid_data <- dplyr::filter(covid_data, Country_Region == "US")
+
+covid_sum <- covid_data %>% 
+  group_by(`Province_State`) %>% 
+  summarize(sum_confirmed = sum(Confirmed), sum_death = sum(Deaths))
+
+covid_sum$state <- state.abb[match(covid_sum$Province_State,state.name)]
+covid_sum[10,4] = 'DC' #Columbia District can not be matched with above function
+covid_sum <- dplyr::filter(covid_sum, state %in% stay_per_state$state)
+
+mean_per_state <- state_data %>% 
   group_by(`State Postal Code`) %>% 
-  summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
-  
-stay_per_state$stay_per <- stay_per_state$mean_stay/stay_per_state$mean_notstay
-stay_per_state<-stay_per_state %>% 
+  summarize(mean_stay = mean(`Population Not Staying at Home`), mean_num_trips = mean(`Number of Trips`))
+
+mean_per_state<-mean_per_state %>% 
   rename(state = `State Postal Code`)
 
-# Blank state map ####
-blank_state_map <- plot_usmap()
-<!-- state_pop_map_labeled <- -->
-<!--   plot_usmap(data = stay_per_state, values = "stay_per", labels = TRUE) + -->
-<!--   scale_fill_continuous(low = "white", high = "red", guide = FALSE,  name = "Percentage of people staying at home", label = scales::comma) + -->
-<!--   scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))  -->
+covid_trip_data = merge(x = mean_per_state, y = covid_sum, by.x = "state", by.y = "state")
 
+# create a theme for dot plots, which can be reused
+theme_dotplot <- theme_bw(14) +
+    theme(axis.text.y = element_text(size = rel(.5)),
+        axis.ticks.y = element_blank(),
+        axis.title.x = element_text(size = rel(.75)),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size = 1),
+        panel.grid.minor.x = element_blank())
 
-<!-- cowplot::plot_grid( -->
-<!--   state_pop_map_labeled -->
-<!-- ) -->
+options(scipen = 9)
 
-state_perc_map_labeled <- plot_usmap(data = stay_per_state, values = "stay_per", labels = TRUE) + 
-  scale_fill_continuous(low = "white", high = "blue", name = "Percentage of people at home", label = scales::comma) + 
-  labs(title = "Percentage of people staying at home", subtitle = "Percentage Estimates for people stay at home for each state after 04/2020") +
-  theme(legend.position = "right")
-state_perc_map_labeled$layers[[2]]$aes_params$size <- 3
-print(state_perc_map_labeled)
+ggplot(covid_trip_data) +
+  geom_point(aes(mean_num_trips/100, reorder(state, mean_num_trips), color = 'mean_num_trips')) +
+  geom_point(aes(sum_confirmed, reorder(state, mean_num_trips), color = 'sum_confirmed')) +
+  ggtitle("Number of trips and confirmed case", sub = "sorted by trips value") + ylab("State") +
+  theme_dotplot
 
-
-
+```
