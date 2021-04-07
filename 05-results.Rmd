@@ -137,3 +137,6 @@ ggplot(covid_trip_data) +
   theme_dotplot
 
 ```
+Hi Liu
+How are you?
+Am I good?
