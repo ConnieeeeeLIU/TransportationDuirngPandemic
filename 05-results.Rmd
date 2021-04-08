@@ -1,18 +1,20 @@
 # Results
 
+
 ### Number of daily trips people make nationally.
 
 Time series plot
-
-
-```{r, fig.height = 6, fig.width = 10}
-# r, fig.height = 6, fig.width = 10
+```{r setup}
 library(tidyverse)
 library(dplyr)
 library(usmap)
 library(ggplot2)
 library(lubridate)
+library(reshape)
+```
 
+```{r time series, fig.height = 6, fig.width = 10}
+# r, fig.height = 6, fig.width = 10
 national_data <- readr::read_csv("data/clean/National.csv", 
                             col_types = cols(
   .default = col_double(),
@@ -62,9 +64,50 @@ ggplot(national_data, aes(Date, `Number of Trips`/1000000)) +
     theme_bw(16)
 ```
 
+### plot for trip length before and after Covid-19
+
+```{r hist}
+library(reshape2)
+national_data <- readr::read_csv("data/clean/National.csv", 
+                            col_types = cols(
+  .default = col_double(),
+  Level = col_character(),
+  Date = col_date(format = ""),
+  `State FIPS` = col_character(),
+  `State Postal Code` = col_character(),
+  `County FIPS` = col_character(),
+  `County Name` = col_character(),
+  `Row ID` = col_character()
+))
+
+national_data$`Number of Trips >= 50` <- national_data$`Number of Trips 50-100` + national_data$`Number of Trips 100-250` + national_data$`Number of Trips 250-500` + national_data$`Number of Trips >=500`
+
+national_data_part <- national_data[,11:16]
+national_data_part$`Number of Trips >= 50`<- national_data$`Number of Trips >= 50`
+national_data_part$Date <- national_data$Date
+national_data_part$covid <- ifelse(national_data_part$Date > as.Date('2020-04-01'), "after", "before")
+
+mean_national_data <- melt(national_data_part, id.vars = c("Date","covid"),
+                           variable.name='distance',
+                           value.name='Freq') 
+mean_national_data <- mean_national_data %>%
+  group_by(covid, distance) %>%
+  summarize(Freq = sum(Freq))
+
+ggplot(mean_national_data) +
+      geom_col(aes(x = covid, y = Freq/1000000, fill = distance)) +  
+  scale_fill_brewer(type = "qual", palette = "PRGn") +
+  ggtitle("Trips before and after pandemic")  +
+  xlab("Covid") + ylab("Number of trips (in millions)") + 
+  theme_bw()
+
+```
 
 ### Scatterplot: Overview of Transportation and CovID-19
-```{r}
+```{r scatterplot, eval = FALSE}
+library(covid19.analytics)
+library(coronavirus)
+library(reshape)
 # Load time-series of total confirmed data
 # 2020-01-23 ~ 2021-02-01 offline data
 confirmed_ts <- covid19.data("ts-confirmed")
@@ -90,20 +133,37 @@ national_all <- merge(national_data, national_confirmed, by="Date")
 
 # Do regression again with confirmed cases under 150000
 ggplot(dplyr::filter(national_all, Confirmed<150000), aes(x = Confirmed, y = `Number of Trips`)) +
-  geom_point() +
+  geom_point() + 
   geom_smooth(method = lm)
 ```
 
-```{r}
+```{r, eval = FALSE}
 # A helper plot to see trend of confirmed cases
 ggplot(data=national_all, aes(x=Date, y=Confirmed))+
   geom_line()
 ```
 
 ### multiple Cleveland dot plot
-```{r, fig.height = 6, fig.width = 10}
+
+```{r cleveland, fig.height = 6, fig.width = 10}
 library(covid19.analytics)
 library(coronavirus)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+
+state_data <- readr::read_csv("data/clean/State.csv")
+state_data <- dplyr::filter(state_data, Date >= "2020-04-01") # to be changed if start date changes
+stay_per_state <- state_data %>% 
+  group_by(`State Postal Code`) %>% 
+  summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
+
+stay_per_state$stay_per <- stay_per_state$mean_stay/(stay_per_state$mean_notstay+stay_per_state$mean_stay)
+
+colnames(stay_per_state) <- c("state","mean_stay","mean_notstay","stay_per"  )
+#stay_per_state_rename <- stay_per_state %>% rename(state=`State Postal Code`)
+
 
 covid_data <- covid19.data()
 covid_data <- dplyr::filter(covid_data, Country_Region == "US")
@@ -120,8 +180,9 @@ mean_per_state <- state_data %>%
   group_by(`State Postal Code`) %>% 
   summarize(mean_stay = mean(`Population Not Staying at Home`), mean_num_trips = mean(`Number of Trips`))
 
-mean_per_state<-mean_per_state %>% 
-  rename(state = `State Postal Code`)
+#mean_per_state<-mean_per_state %>% 
+#  rename(state = `State Postal Code`)
+colnames(mean_per_state) <- c("state","mean_stay","mean_num_trips")
 
 covid_trip_data = merge(x = mean_per_state, y = covid_sum, by.x = "state", by.y = "state")
 
@@ -137,19 +198,67 @@ theme_dotplot <- theme_bw(14) +
 options(scipen = 9)
 
 ggplot(covid_trip_data) +
-  geom_point(aes(mean_num_trips/100, reorder(state, mean_num_trips), color = 'mean_num_trips')) +
-  geom_point(aes(sum_confirmed, reorder(state, mean_num_trips), color = 'sum_confirmed')) +
+  geom_point(aes(mean_num_trips/100, reorder(state, mean_num_trips), color = 'Average number of trips')) +
+  geom_point(aes(sum_confirmed, reorder(state, mean_num_trips), color = 'Sum of confirmed case')) +
   ggtitle("Number of trips and confirmed case", sub = "sorted by trips value") + ylab("State") +
+  theme_dotplot
+```
+
+Cleveland dot plot of number of trips before and after pandemic
+```{r c 2, fig.height = 6, fig.width = 10}
+library(covid19.analytics)
+library(coronavirus)
+library(tidyverse)
+
+state_data <- readr::read_csv("data/clean/State.csv")
+#state_data <- state_data %>% 
+#  rename(state = `State Postal Code`)
+
+
+colnames(state_data)[5] <- 'state'
+
+state_data_after <- dplyr::filter(state_data, Date >= "2020-04-01") # to be changed if start date changes
+state_data_before <- dplyr::filter(state_data, Date < "2020-04-01")
+
+mean_per_state_before <- state_data_before %>% 
+  group_by(state) %>% 
+  summarize(mean_nstay_before = mean(`Population Not Staying at Home`), mean_num_trips_before = mean(`Number of Trips`))
+
+mean_per_state_after <- state_data_after %>% 
+  group_by(state) %>% 
+  summarize(mean_nstay_after = mean(`Population Not Staying at Home`), mean_num_trips_after = mean(`Number of Trips`))
+
+#mean_per_state<-mean_per_state %>% 
+#  rename(state = `State Postal Code`)
+
+compare_trip_data = merge(x = mean_per_state_before, y = mean_per_state_after, by.x = "state", by.y = "state")
+
+# create a theme for dot plots, which can be reused
+theme_dotplot <- theme_bw(14) +
+    theme(axis.text.y = element_text(size = rel(.5)),
+        axis.ticks.y = element_blank(),
+        axis.title.x = element_text(size = rel(.75)),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size = 1),
+        panel.grid.minor.x = element_blank())
+
+options(scipen = 9)
+
+ggplot(compare_trip_data) +
+  geom_point(aes(mean_num_trips_before/1000, reorder(state, mean_num_trips_before), color = 'Average trips before pandamic')) +
+  geom_point(aes(mean_num_trips_after/1000, reorder(state, mean_num_trips_before), color = 'Average trips after pandamic')) +
+  ggtitle("Number of trips before and after pandamic", sub = "sorted by before") + ylab("State") +
   theme_dotplot
 
 ```
+
 
 ### Percent of people staying at home during COVID-19 pandemic.
 
 Date after 2020-04-01
 https://github.com/wmurphyrd/fiftystater
 https://github.com/pdil/usmap/blob/master/resources/examples.R
-```{r, fig.height = 6, fig.width = 10}
+```{r map, fig.height = 6, fig.width = 10}
 library(tidyverse)
 library(dplyr)
 library(usmap)
@@ -162,10 +271,10 @@ stay_per_state <- state_data %>%
   group_by(`State Postal Code`) %>% 
   summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
   
-stay_per_state$stay_per <- stay_per_state$mean_stay/stay_per_state$mean_notstay
-stay_per_state<-stay_per_state %>% 
-  rename(state = `State Postal Code`)
-
+stay_per_state$stay_per <- stay_per_state$mean_stay/(stay_per_state$mean_notstay+stay_per_state$mean_stay)
+#stay_per_state<-stay_per_state %>% 
+#  rename(state = `State Postal Code`)
+colnames(stay_per_state) <- c("state","mean_stay","mean_notstay","stay_per"  )
 state_perc_map_labeled <- plot_usmap(data = stay_per_state, 
                                      values = "stay_per", labels = TRUE) + 
   scale_fill_continuous(low = "white", high = "blue", 
@@ -182,7 +291,10 @@ Note: Did not manage to solve the label overlap problem :(
 
 
 ### Heatmap of people going out in each state
-```{r, fig.width = 12, fig.height = 12}
+```{r Heatmap, fig.width = 12, fig.height = 12}
+library(covid19.analytics)
+library(coronavirus)
+library(dplyr)
 state_data <- readr::read_csv("data/clean/State.csv")
 state_data <- dplyr::filter(state_data, Date >= "2020-03-01" & Date < "2021-03-01")
 state_monthly <- state_data %>%
@@ -194,8 +306,9 @@ state_monthly <- state_data %>%
   mutate(Date = as.Date(paste(Year, Month, Day, sep="-")))
 state_monthly$stay_per <- state_monthly$sum_stay/(state_monthly$sum_notstay+state_monthly$sum_stay)
 state_monthly$notstay_per <- state_monthly$sum_notstay/(state_monthly$sum_notstay+state_monthly$sum_stay)
-state_monthly<-state_monthly %>% 
-  rename(state = `State Postal Code`)
+#state_monthly<-state_monthly %>% 
+#  rename(state = `State Postal Code`)
+colnames(state_monthly)[4] <- 'state'
 
 ggplot(state_monthly, aes(x=Date, y=reorder(state, notstay_per))) +
   geom_tile(aes(fill = notstay_per), colour = "white") +
@@ -210,15 +323,17 @@ ggplot(state_monthly, aes(x=Date, y=reorder(state, notstay_per))) +
 ```
 
 ### Alluvial chart showing type of travelling in terms of distance
-```{r, fig.width = 12, fig.height = 12}
+```{r alluvial, fig.width = 12, fig.height = 12}
 library(ggalluvial)
-
+library(dplyr)
 state_data$`Number of Trips >= 50` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
 state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
 state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
                            variable.name='Trips in Different Distance',
-                           value.name='Freq') %>%
-  rename(state = `State Postal Code`)
+                           value.name='Freq') 
+#%>% rename(state = `State Postal Code`)
+colnames(state_agg)[1] <- 'state'
+
 state_agg <- state_agg %>%
   group_by(state,
            `Trips in Different Distance`) %>%
@@ -234,3 +349,43 @@ ggplot(state_agg, aes(y = Freq, axis1 = state, axis2 = `Trips in Different Dista
   scale_fill_brewer(type = "qual", palette = "Set1") +
   ggtitle("How far does people travel during pandemic")
 ```
+
+### Treemap for top five states where most people travelling around
+
+```{r Treemap, fig.height = 6, fig.width = 10, eval=FALSE}
+library(treemap)
+treemap(state_agg,
+        index=c('state','Trips in Different Distance'),
+        vSize="Freq",
+        type="index",
+        palette = "Pastel1",
+        title = 'Treemap of state and number of trips',
+        fontsize.title = 14, 
+        fontsize.labels = 8, 
+        fontsize.legend = 8,
+        align.labels = list(c('center','center'), c('right','top'))) 
+```
+```{r treemap, fig.height = 4, fig.width = 6, include = FALSE}
+#devtools::install_github("timelyportfolio/d3treeR")
+library(d3treeR)
+library(treemap)
+treemap <- treemap(state_agg,
+        index=c('state','Trips in Different Distance'),
+        vSize="Freq",
+        type="index",
+        palette = "Pastel1",
+        title = 'Treemap of state and number of trips',
+        fontsize.title = 14, 
+        fontsize.labels = 8, 
+        fontsize.legend = 8,
+        align.labels = list(c('center','center'), c('right','top'))) 
+```
+Interactive! https://www.data-to-viz.com/graph/treemap.html
+
+```{r interactive treemap}
+# make it interactive ("rootname" becomes the title of the plot):
+d3tree2(treemap ,  rootname = 'Treemap of state and number of trips' )
+
+```
+
+
