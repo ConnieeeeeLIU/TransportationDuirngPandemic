@@ -104,10 +104,10 @@ ggplot(mean_national_data) +
 ```
 
 ### Scatterplot: Overview of Transportation and CovID-19
-```{r scatterplot, eval = FALSE}
+```{r scatterplot}
 library(covid19.analytics)
 library(coronavirus)
-library(reshape)
+library(reshape2)
 # Load time-series of total confirmed data
 # 2020-01-23 ~ 2021-02-01 offline data
 confirmed_ts <- covid19.data("ts-confirmed")
@@ -323,10 +323,12 @@ ggplot(state_monthly, aes(x=Date, y=reorder(state, notstay_per))) +
 ```
 
 ### Alluvial chart showing type of travelling in terms of distance
-```{r alluvial, fig.width = 12, fig.height = 12}
+```{r alluvial, fig.width = 16, fig.height = 12}
 library(ggalluvial)
 library(dplyr)
+state_data <- readr::read_csv("data/clean/State.csv")
 state_data$`Number of Trips >= 50` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
+
 state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
 state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
                            variable.name='Trips in Different Distance',
@@ -334,19 +336,28 @@ state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
 #%>% rename(state = `State Postal Code`)
 colnames(state_agg)[1] <- 'state'
 
+state_agg$covid <- case_when(year(state_agg$Date) == 2019 & month(state_agg$Date) ==7 ~ "before",
+                             year(state_agg$Date) == 2020 & month(state_agg$Date) ==12 ~ "after")
+
 state_agg <- state_agg %>%
   group_by(state,
+           covid,
            `Trips in Different Distance`) %>%
   summarize(Freq = sum(Freq))
 
 # Show alluvial chart of top 5 states where most people travelling around
-state_agg <- dplyr::filter(state_agg, state %in% c('MS', 'AL', 'AR', 'SC', 'LA'))
+#state_agg <- dplyr::filter(state_agg, state %in% c('MS', 'AL', 'AR', 'SC', 'LA'))
+state_agg <- dplyr::filter(state_agg, state %in% c( 'NY', 'CA', 'MA') )
+state_agg <- dplyr::filter(state_agg, covid %in% c('before', 'after'))
+state_agg$covid = factor(state_agg$covid, levels = c("before", "after"))
+
 ggplot(state_agg, aes(y = Freq, axis1 = state, axis2 = `Trips in Different Distance`))+
   geom_alluvium(aes(fill = state), width = 1/12) +
   geom_stratum(width = 1/12, fill = "black", color = "grey") +
   geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
   scale_x_discrete(limits = c("State", "Trips in Different Distance"), expand = c(.05, .05)) +
   scale_fill_brewer(type = "qual", palette = "Set1") +
+  facet_wrap(~covid, scale = "free") +
   ggtitle("How far does people travel during pandemic")
 ```
 
