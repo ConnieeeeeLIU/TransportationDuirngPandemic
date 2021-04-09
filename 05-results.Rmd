@@ -365,6 +365,27 @@ ggplot(state_agg, aes(y = Freq, axis1 = state, axis2 = `Trips in Different Dista
 
 ```{r Treemap, fig.height = 6, fig.width = 10, eval=FALSE}
 library(treemap)
+library(dplyr)
+library(reshape2)
+state_data <- readr::read_csv("data/clean/State.csv")
+state_data <- dplyr::filter(state_data, Date >= "2020-03-01" & Date < "2021-03-01")
+
+state_data$`Number of Trips >= 50` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
+state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
+state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
+                           variable.name='Trips in Different Distance',
+                           value.name='Freq') 
+#%>% rename(state = `State Postal Code`)
+colnames(state_agg)[1] <- 'state'
+
+state_agg <- state_agg %>%
+  group_by(state,
+           `Trips in Different Distance`) %>%
+  summarize(Freq = sum(Freq))
+
+# Show alluvial chart of top 5 states where most people travelling around
+state_agg <- dplyr::filter(state_agg, state %in% c('MS', 'AL', 'AR', 'SC', 'LA'))
+
 treemap(state_agg,
         index=c('state','Trips in Different Distance'),
         vSize="Freq",
@@ -380,6 +401,28 @@ treemap(state_agg,
 #devtools::install_github("timelyportfolio/d3treeR")
 library(d3treeR)
 library(treemap)
+library(dplyr)
+library(reshape2)
+state_data <- readr::read_csv("data/clean/State.csv")
+state_data <- dplyr::filter(state_data, Date >= "2020-03-01" & Date < "2021-03-01")
+
+state_data$`Number of Trips >= 50` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
+state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
+state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
+                           variable.name='Trips in Different Distance',
+                           value.name='Freq') 
+#%>% rename(state = `State Postal Code`)
+colnames(state_agg)[1] <- 'state'
+
+state_agg <- state_agg %>%
+  group_by(state,
+           `Trips in Different Distance`) %>%
+  summarize(Freq = sum(Freq))
+
+# Show alluvial chart of top 5 states where most people travelling around
+state_agg <- dplyr::filter(state_agg, state %in% c('MS', 'AL', 'AR', 'SC', 'LA'))
+
+
 treemap <- treemap(state_agg,
         index=c('state','Trips in Different Distance'),
         vSize="Freq",
