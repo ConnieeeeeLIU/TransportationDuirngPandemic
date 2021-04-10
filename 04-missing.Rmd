@@ -1,1 +1,57 @@
 # Missing values
+
+Reference: https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html
+
+Daily trips by distance
+```{r national }
+library(tidyverse)
+library(dplyr)
+library(visdat)
+national_data <- readr::read_csv("data/clean/National.csv", 
+                            col_types = cols(
+  .default = col_double(),
+  Level = col_character(),
+  Date = col_date(format = ""),
+  `State FIPS` = col_character(),
+  `State Postal Code` = col_character(),
+  `County FIPS` = col_character(),
+  `County Name` = col_character(),
+  `Row ID` = col_character()
+))
+
+vis_dat(national_data)
+```
+
+
+```{r n2 }
+vis_miss(national_data)
+```
+
+
+
+
+Transportation data:
+```{r transportation }
+library(visdat)
+transportation_data <- readr::read_csv("data/clean/Transportation.csv")
+vis_dat(transportation_data)
+```
+
+```{r t2 }
+vis_miss(transportation_data)
+```
+
+Covid data:
+```{r covid }
+library(visdat)
+library(covid19.analytics)
+library(coronavirus)
+covid_data <- covid19.data()
+covid_data <- dplyr::filter(covid_data, Country_Region == "US")
+
+vis_dat(covid_data)
+```
+
+```{r c2 }
+vis_miss(covid_data)
+```
