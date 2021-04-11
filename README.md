@@ -61,6 +61,3 @@ A demo video showing how to create a **bookdown book** following these similar i
 Please consult the official guide to **bookdown**: https://bookdown.org/yihui/bookdown
 
 
-
-This is final project for EDAV Spring 2021
-This is a line from RStudio
