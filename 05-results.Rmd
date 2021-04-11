@@ -1,17 +1,17 @@
 # Results
 
-
-### Number of daily trips people make nationally.
-
-Time series plot
 ```{r setup}
 library(tidyverse)
 library(dplyr)
 library(usmap)
 library(ggplot2)
 library(lubridate)
-library(reshape)
+library(reshape2)
 ```
+
+### Number of daily trips people make nationally.
+
+Time series plot
 
 ```{r time series, fig.height = 6, fig.width = 10}
 # r, fig.height = 6, fig.width = 10
@@ -62,85 +62,6 @@ ggplot(national_data, aes(Date, `Number of Trips`/1000000)) +
     ggtitle("Number of trips(National) \n (in millions)") + 
     labs(x = "Date", y = "Number of trips (in millions)") +
     theme_bw(16)
-```
-
-### plot for trip length before and after Covid-19
-
-```{r hist}
-library(reshape2)
-national_data <- readr::read_csv("data/clean/National.csv", 
-                            col_types = cols(
-  .default = col_double(),
-  Level = col_character(),
-  Date = col_date(format = ""),
-  `State FIPS` = col_character(),
-  `State Postal Code` = col_character(),
-  `County FIPS` = col_character(),
-  `County Name` = col_character(),
-  `Row ID` = col_character()
-))
-
-national_data$`Number of Trips >= 50` <- national_data$`Number of Trips 50-100` + national_data$`Number of Trips 100-250` + national_data$`Number of Trips 250-500` + national_data$`Number of Trips >=500`
-
-national_data_part <- national_data[,11:16]
-national_data_part$`Number of Trips >= 50`<- national_data$`Number of Trips >= 50`
-national_data_part$Date <- national_data$Date
-national_data_part$covid <- ifelse(national_data_part$Date > as.Date('2020-04-01'), "after", "before")
-
-mean_national_data <- melt(national_data_part, id.vars = c("Date","covid"),
-                           variable.name='distance',
-                           value.name='Freq') 
-mean_national_data <- mean_national_data %>%
-  group_by(covid, distance) %>%
-  summarize(Freq = sum(Freq))
-
-ggplot(mean_national_data) +
-      geom_col(aes(x = covid, y = Freq/1000000, fill = distance)) +  
-  scale_fill_brewer(type = "qual", palette = "PRGn") +
-  ggtitle("Trips before and after pandemic")  +
-  xlab("Covid") + ylab("Number of trips (in millions)") + 
-  theme_bw()
-
-```
-
-### Scatterplot: Overview of Transportation and CovID-19
-```{r scatterplot}
-library(covid19.analytics)
-library(coronavirus)
-library(reshape2)
-# Load time-series of total confirmed data
-# 2020-01-23 ~ 2021-02-01 offline data
-confirmed_ts <- covid19.data("ts-confirmed")
-confirmed_ts <- dplyr::filter(confirmed_ts, Country.Region == "US")
-# Get daily new cases
-confirmed_ts <- growth.rate(confirmed_ts, staticPlt = FALSE)[['Changes']]
-
-national_confirmed <- melt(confirmed_ts, id.vars = c('geo.loc'),
-                           variable.name='Date',
-                           value.name='Confirmed')
-national_confirmed <- national_confirmed[, c('Date', 'Confirmed')] %>%  
-  mutate(Date = as.Date(Date))
-
-national_all <- merge(national_data, national_confirmed, by="Date")
-
-#ggplot(national_all, aes(x = Confirmed, y = `Number of Trips`)) +
- # geom_point() +
- # geom_smooth() # "method = lm" to show linear regression result, but it seems not very linear 
-
-# Find outlier through boxplot
-#ggplot(national_all, aes(y=Confirmed)) +
-  #geom_boxplot()
-
-# Do regression again with confirmed cases under 150000
-ggplot(dplyr::filter(national_all, Confirmed<150000), aes(x = Confirmed, y = `Number of Trips`)) +
-  geom_point() + 
-  geom_smooth(method = lm)
-```
-
-```{r, eval = FALSE}
-# A helper plot to see trend of confirmed cases
-ggplot(data=national_all, aes(x=Date, y=Confirmed))+
-  geom_line()
 ```
 
 ### multiple Cleveland dot plot
@@ -253,6 +174,57 @@ ggplot(compare_trip_data) +
 ```
 
 
+### Scatterplot: Overview of Transportation and CovID-19
+
+In order to take a close look at relationship between transportation and pandemic, we draw a scatterplot of daily number of trips and confirmed cases in a national wide range (2020-01-23 ~ 2021-02-01). By first drawing a boxplot of confirmed cases (omitted here), we only keep the interquantile range. We could read information that when there are more confirmed cases, fewer people will travel out, which conforms to our common sense. However, the tendency is not that obvious. From the scatterplot, it seems that people's willingness to travelling is not largely affected by epidemic situation.
+
+```{r scatterplot}
+library(covid19.analytics)
+library(coronavirus)
+library(reshape2)
+# Load time-series of total confirmed data
+# 2020-01-23 ~ 2021-02-01 offline data
+confirmed_ts <- covid19.data("ts-confirmed")
+confirmed_ts <- dplyr::filter(confirmed_ts, Country.Region == "US")
+# Get daily new cases
+confirmed_ts <- growth.rate(confirmed_ts, staticPlt = FALSE)[['Changes']]
+
+national_confirmed <- melt(confirmed_ts, id.vars = c('geo.loc'),
+                           variable.name='Date',
+                           value.name='Confirmed')
+national_confirmed <- national_confirmed[, c('Date', 'Confirmed')] %>%  
+  mutate(Date = as.Date(Date))
+
+national_all <- merge(national_data, national_confirmed, by="Date")
+
+#ggplot(national_all, aes(x = Confirmed, y = `Number of Trips`)) +
+ # geom_point() +
+ # geom_smooth() # "method = lm" to show linear regression result, but it seems not very linear 
+
+# Find outlier through boxplot
+#ggplot(national_all, aes(y=Confirmed)) +
+#  geom_boxplot()
+
+# Do regression again with confirmed cases under 150000
+ggplot(dplyr::filter(national_all, Confirmed<100000 & Confirmed>2500), aes(x = Confirmed, y = `Number of Trips`/1000000)) +
+  geom_point() + 
+  geom_smooth(method = lm) +
+  labs(subtitle = "National wide",
+       y = "Number of Trips (in millions)",
+       x = "Confirmed cases",
+       title = "Scatterplot of number of trips VS confirmed cases",
+       caption = "Date range: 2020/01/23~2021/02/01") +
+  theme_bw()
+```
+
+```{r, eval = FALSE}
+# A helper plot to see trend of confirmed cases
+ggplot(data=national_all, aes(x=Date, y=Confirmed))+
+  geom_line()
+```
+
+
+
 ### Percent of people staying at home during COVID-19 pandemic.
 
 Date after 2020-04-01
@@ -291,12 +263,19 @@ Note: Did not manage to solve the label overlap problem :(
 
 
 ### Heatmap of people going out in each state
+
+After a glance at how much people observe quarantine in each state, we want to see further how this portion changes as time passes by. We use a heatmap to show average proportion of people travelling out of each state monthly. 50 states are put on the y-axis and 15 months are on the x-axis (2019/12~2021/02). 
+
+A lot of information could be fetched from this plot! Some states on the top of heatmap almost ignore the quarantine advocacy, such as Mississippi, Alabama and Arkansas, where proportion of people going out merely decreases during pandemic. Some common features of these states are that the number of confirmed cases is not very high and population density is also comparatively low. Number of trips of most states significantly drops during two periods of pandemic (April 2020 and Winter 2020). 
+
+It is also interesting that the lower right part of the heatmap is quite light, implying that people in these states are customed to staying at home (like Work From Home) even when epidemic situation is ameliorated. What's more, the three states with most confirmed cases are California, Texas and New York sequently. However, their anti-epidemic measures seems quite different since California and New York are among the states with least proportion of people travelling while percent of travelers is still high in Texas.
+
 ```{r Heatmap, fig.width = 12, fig.height = 12}
 library(covid19.analytics)
 library(coronavirus)
 library(dplyr)
 state_data <- readr::read_csv("data/clean/State.csv")
-state_data <- dplyr::filter(state_data, Date >= "2020-03-01" & Date < "2021-03-01")
+state_data <- dplyr::filter(state_data, Date >= "2019-12-01" & Date < "2021-03-01")
 state_monthly <- state_data %>%
   group_by(Year = year(Date),
            Month = month(Date),
@@ -322,44 +301,92 @@ ggplot(state_monthly, aes(x=Date, y=reorder(state, notstay_per))) +
   ggtitle(label = "Percent of people travelling in each state over months")
 ```
 
-### Alluvial chart showing type of travelling in terms of distance
-```{r alluvial, fig.width = 16, fig.height = 12}
-library(ggalluvial)
-library(dplyr)
-state_data <- readr::read_csv("data/clean/State.csv")
-state_data$`Number of Trips >= 50` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
+### Ridgeline plot of daily new cases
 
-state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
-state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
-                           variable.name='Trips in Different Distance',
+For reference, we put the weekly averaged new confirmed cases of five states with most cases in a ridgeline plot. We can see that first peek of cases in New Yrok is much earlier than other states. Compared with California and New York, the ridge of Taxes is more continuous in the sense that it has never reached a valley (minimum) in the last 10 months.
+　
+```{r ridgeline plot of covid confirmed cases}
+library(covid19.analytics)
+library(coronavirus)
+library(ggridges)
+covid <- covid19.data("ts-confirmed-US")
+covid <- covid[-which(colnames(covid) %in% c("Country_Region", "Lat", "Long_"))]
+state_confirmed <- melt(covid, id.vars = c('Province_State'),
+                           variable.name='Date',
+                           value.name='Confirmed_tot')
+
+state_confirmed <- state_confirmed  %>%  mutate(Date = as.Date(Date))
+
+state_confirmed <- state_confirmed %>% 
+  group_by(`Province_State`, `Date`) %>% 
+  summarize(Confirmed_tot = sum(Confirmed_tot))
+
+state_confirmed <- state_confirmed %>%  group_by(Province_State) %>%  mutate(lead_tot = lead(Confirmed_tot, 1, order_by = Date)) %>%  arrange(Province_State, Date) %>%  mutate(new = (lead_tot - Confirmed_tot))
+
+state_confirmed <- na.omit(state_confirmed)
+
+state_conf_weekly <- state_confirmed[which(colnames(state_confirmed) %in% c("Province_State", "Date", "new"))] %>%
+  group_by(Year = year(Date),
+           Week = week(Date),
+           Province_State) %>%
+  summarize(avg_conf = mean(new)) %>%
+  mutate(Date = as.Date("2018-12-27")+
+           365*(Year-2019)+
+           7*(Week))
+
+# Five states with most confirmed cases
+state_conf_weekly$Province_State <- factor(state_conf_weekly$Province_State)
+state_conf_weekly <- dplyr::filter(state_conf_weekly, Province_State %in% c('California', 'Texas', 'New York', 'Florida', 'Illinois'))
+
+#ggplot(state_confirmed, aes(x=Date, y=Province_State)) +
+#  geom_density_ridges()
+
+ggplot(state_conf_weekly, aes(x=Date, y=reorder(Province_State, avg_conf), height=avg_conf, group=Province_State, fill=stat(height))) +
+  geom_density_ridges_gradient(stat="identity", scale=1.2) +
+  scale_fill_viridis_c(name = "Confirmed cases", option = "C") +
+  labs(y="State",
+       x="Date",
+       title = "Daily new confirmed cases in top states")
+```
+
+### plot for trip length before and after Covid-19
+
+```{r hist}
+national_data <- readr::read_csv("data/clean/National.csv", 
+                            col_types = cols(
+  .default = col_double(),
+  Level = col_character(),
+  Date = col_date(format = ""),
+  `State FIPS` = col_character(),
+  `State Postal Code` = col_character(),
+  `County FIPS` = col_character(),
+  `County Name` = col_character(),
+  `Row ID` = col_character()
+))
+
+national_data$`Number of Trips >= 50` <- national_data$`Number of Trips 50-100` + national_data$`Number of Trips 100-250` + national_data$`Number of Trips 250-500` + national_data$`Number of Trips >=500`
+
+national_data_part <- national_data[,11:16]
+national_data_part$`Number of Trips >= 50`<- national_data$`Number of Trips >= 50`
+national_data_part$Date <- national_data$Date
+national_data_part$covid <- ifelse(national_data_part$Date > as.Date('2020-04-01'), "after", "before")
+
+mean_national_data <- melt(national_data_part, id.vars = c("Date","covid"),
+                           variable.name='distance',
                            value.name='Freq') 
-#%>% rename(state = `State Postal Code`)
-colnames(state_agg)[1] <- 'state'
-
-state_agg$covid <- case_when(year(state_agg$Date) == 2019 & month(state_agg$Date) ==7 ~ "before",
-                             year(state_agg$Date) == 2020 & month(state_agg$Date) ==12 ~ "after")
-
-state_agg <- state_agg %>%
-  group_by(state,
-           covid,
-           `Trips in Different Distance`) %>%
+mean_national_data <- mean_national_data %>%
+  group_by(covid, distance) %>%
   summarize(Freq = sum(Freq))
 
-# Show alluvial chart of top 5 states where most people travelling around
-#state_agg <- dplyr::filter(state_agg, state %in% c('MS', 'AL', 'AR', 'SC', 'LA'))
-state_agg <- dplyr::filter(state_agg, state %in% c( 'NY', 'CA', 'MA') )
-state_agg <- dplyr::filter(state_agg, covid %in% c('before', 'after'))
-state_agg$covid = factor(state_agg$covid, levels = c("before", "after"))
+ggplot(mean_national_data) +
+      geom_col(aes(x = covid, y = Freq/1000000, fill = distance)) +  
+  scale_fill_brewer(type = "qual", palette = "PRGn") +
+  ggtitle("Trips before and after pandemic")  +
+  xlab("Covid") + ylab("Number of trips (in millions)") + 
+  theme_bw()
 
-ggplot(state_agg, aes(y = Freq, axis1 = state, axis2 = `Trips in Different Distance`))+
-  geom_alluvium(aes(fill = state), width = 1/12) +
-  geom_stratum(width = 1/12, fill = "black", color = "grey") +
-  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
-  scale_x_discrete(limits = c("State", "Trips in Different Distance"), expand = c(.05, .05)) +
-  scale_fill_brewer(type = "qual", palette = "Set1") +
-  facet_wrap(~covid, scale = "free") +
-  ggtitle("How far does people travel during pandemic")
 ```
+
 
 ### Treemap for top five states where most people travelling around
 
@@ -442,65 +469,75 @@ d3tree2(treemap ,  rootname = 'Treemap of state and number of trips' )
 
 ```
 
-### Ridgeline plot of daily new cases
-```{r ridgeline plot of covid confirmed cases}
-library(covid19.analytics)
-library(coronavirus)
-library(ggridges)
-covid <- covid19.data("ts-confirmed-US")
-covid <- covid[-which(colnames(covid) %in% c("Country_Region", "Lat", "Long_"))]
-state_confirmed <- melt(covid, id.vars = c('Province_State'),
-                           variable.name='Date',
-                           value.name='Confirmed_tot')
+### Alluvial chart showing type of travelling in terms of distance
 
-state_confirmed <- state_confirmed  %>%  mutate(Date = as.Date(Date))
+Here we use two alluvial diagrams to show distributions of trips of different lengths in California, New Yor and Texas, separately before (before 2020/03/13) and after (after 2020/03/13) COVID-19 breaks out. We define trips of length between 0 to 5 miles as short trips; 5 to 50 miles as medium trips and longer than 50 miles as long trips. From these two figures, the rough dividing of short, medium and long remain the same as before pandemic, where most trips are short ones. And we can read that proportion of people travelling out increases in Texas in these three states, as we have already learned before. What's more, we also don't see a decrease in proportion of long-distance trips in these three states. It is an interesting finding that when people taking care of themselves by decreasing numbers of going out nearby, they don't necessarily avoid long-term trips.
 
-state_confirmed <- state_confirmed %>% 
-  group_by(`Province_State`, `Date`) %>% 
-  summarize(Confirmed_tot = sum(Confirmed_tot))
+```{r alluvial, fig.width = 20, fig.height = 12}
+library(ggalluvial)
+library(dplyr)
+state_data <- readr::read_csv("data/clean/State.csv")
+state_data$`short trips` <- state_data$`Number of Trips <1` + state_data$`Number of Trips 1-3` + state_data$`Number of Trips 3-5`
+state_data$`medium trips` <- state_data$`Number of Trips 5-10` + state_data$`Number of Trips 10-25` + state_data$`Number of Trips 25-50`
+state_data$`long trips` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
 
-state_confirmed <- state_confirmed %>%  group_by(Province_State) %>%  mutate(lead_tot = lead(Confirmed_tot, 1, order_by = Date)) %>%  arrange(Province_State, Date) %>%  mutate(new = (lead_tot - Confirmed_tot))
+#state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
+state_agg <- state_data[which(colnames(state_data) %in% c("State Postal Code", "Date", "short trips", "medium trips", "long trips"))]
+state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
+                           variable.name='Trips in Different Distance',
+                           value.name='Freq') 
+#%>% rename(state = `State Postal Code`)
+colnames(state_agg)[1] <- 'state'
 
-state_confirmed <- na.omit(state_confirmed)
+state_agg$covid <- case_when(state_agg$Date < as.Date("2020-03-13") ~ "before",
+                             state_agg$Date >= as.Date("2020-03-13") ~ "after")
 
-state_conf_weekly <- state_confirmed[which(colnames(state_confirmed) %in% c("Province_State", "Date", "new"))] %>%
-  group_by(Year = year(Date),
-           Week = week(Date),
-           Province_State) %>%
-  summarize(avg_conf = mean(new)) %>%
-  mutate(Date = as.Date("2018-12-27")+
-           365*(Year-2019)+
-           7*(Week))
+state_agg <- state_agg %>%
+  group_by(state,
+           covid,
+           `Trips in Different Distance`) %>%
+  summarize(Freq = sum(Freq))
 
-# Five states with most confirmed cases
-state_conf_weekly$Province_State <- factor(state_conf_weekly$Province_State)
-state_conf_weekly <- dplyr::filter(state_conf_weekly, Province_State %in% c('California', 'Texas', 'New York', 'Florida', 'Illinois'))
+# Show alluvial chart of top 5 states where most people travelling around
+state_agg <- dplyr::filter(state_agg, state %in% c( 'NY', 'CA', 'TX') )
+state_agg <- dplyr::filter(state_agg, covid %in% c('before', 'after'))
+state_agg$covid = factor(state_agg$covid, levels = c("before", "after"))
 
-#ggplot(state_confirmed, aes(x=Date, y=Province_State)) +
-#  geom_density_ridges()
-
-ggplot(state_conf_weekly, aes(x=Date, y=Province_State, height=avg_conf, group=Province_State)) +
-  geom_density_ridges(stat="identity", scale=1) +
-  ggtitle("Daily new confirmed cases in top states")
+ggplot(state_agg, aes(y = Freq, axis1 = state, axis2 = `Trips in Different Distance`))+
+  geom_alluvium(aes(fill = state), width = 1/12) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_x_discrete(limits = c("State", "Trips in Different Distance"), expand = c(.05, .05)) +
+  scale_fill_brewer(type = "qual", palette = "Set1") +
+  facet_wrap(~covid, scales = "free") +
+  ggtitle("How far does people travel during pandemic")
 ```
 
-### Boxplot of Trip numbers for each county in New York
-```{r boxplot of New York}
-NY <- readr::read_csv("data/clean/county/NY.csv")
-NY <- NY[which(colnames(NY) %in% c("Date", "County Name", "Number of Trips <1", "Number of Trips 1-3"))]
-NY$short <- NY$`Number of Trips <1` + NY$`Number of Trips 1-3`
-NY <- NY[-which(colnames(NY) %in% c("Number of Trips <1", "Number of Trips 1-3"))]
 
-#ggplot(NY, aes(x=reorder(`County Name`, short), y=short)) +
+### Boxplot of Trip numbers for each county in Texas
+
+As we have detected Texas as an unusual state ftom analysis above, we decide to explore more about it! We draw a boxplot of number of short trips in 10 counties with most frequent activities. As we can see, number of short-term travellers is far ahead in Harris County, where the medium is about 6.5 millions. Harris County is the most populous county in Texas and the third most populous county in the US, where Houston lies in. Harris is also the fifth top county of confirmed cases (news statistics from Johns Hopkins University). 
+
+```{r boxplot}
+TX <- readr::read_csv("data/clean/county/TX.csv")
+TX <- dplyr::filter(TX, Date >= "2020-03-13")
+TX <- TX[which(colnames(TX) %in% c("Date", "County Name", "Number of Trips <1", "Number of Trips 1-3"))]
+TX$short <- TX$`Number of Trips <1` + TX$`Number of Trips 1-3`
+TX <- TX[-which(colnames(TX) %in% c("Number of Trips <1", "Number of Trips 1-3", "Number of Trips 3-5"))]
+
+#ggplot(TX, aes(x=reorder(`County Name`, short), y=short)) +
 #  geom_bar(stat='identity') +
 #  coord_flip()
 
-top_county <- c("Kings County", "Queens County", "Nassau County", "Suffolk County", "New York County", "Bronx County", "Westchester County", "Erie County", "Monroe County", "Richmond County")
+#top_county <- c("Kings County", "Queens County", "Nassau County", "Suffolk County", "New York County", "Bronx County", "Westchester County", "Erie County", "Monroe County", "Richmond County")
 
-NY <- dplyr::filter(NY, `County Name` %in% top_county)
-ggplot(NY, aes(x=reorder(`County Name`, short), y=short)) +
+top_county <- c("Harris County", "Dallas County", "Tarrant County", "Bexar County", "Travis County", "Hidalgo County", "Collin County", "El Paso County", "Denton County", "Fort Bend County")
+
+TX <- dplyr::filter(TX, `County Name` %in% top_county)
+ggplot(TX, aes(x=reorder(`County Name`, short), y=short)) +
   geom_boxplot() +
   coord_flip() +
-  labs(x="County name", y="Short Trips") +
-  ggtitle("Boxplot of Short trip numbers in each county in New York")
+  labs(x="County name", y="Number of short trips") +
+  ggtitle("Boxplot of Short trip numbers in each county in Texas") +
+  theme_bw()
 ```
