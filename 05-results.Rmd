@@ -144,7 +144,7 @@ Therefore, the changes in the percentages are reasonable and explainable after s
 
 After having an idea about how the number of trips changes in the national level, we would like to go into the state level to see how the averaged number of trips change before and after the pandemic for each state. We select the averaged trip number from 2019-04-01 to 2020-03-13 as the averaged trip number before pandemic and take the averaged number from 2020-03-13 to 2021-03-20 as the one after the pandemic. As a result, we present the multiple Cleveland dot plot, where the averaged daily number of trips change before and after the pandemic for each state is displayed and the order of the state is sorted according to the number of averaged trip numbers before the pandemic. 
 
-```{r c 2, fig.height = 6, fig.width = 10}
+```{r c 2, fig.height = 6, fig.width = 9}
 library(covid19.analytics)
 library(coronavirus)
 library(tidyverse)
@@ -174,23 +174,23 @@ compare_trip_data = merge(x = mean_per_state_before, y = mean_per_state_after, b
 
 # create a theme for dot plots, which can be reused
 theme_dotplot <- theme_bw(14) +
-    theme(axis.text.y = element_text(size = rel(.5)),
+    theme(axis.text.y = element_text(size = rel(0.7)),
         axis.ticks.y = element_blank(),
-        axis.title.x = element_text(size = rel(.75)),
+        axis.title.x = element_text(size = rel(1)),
         panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_line(size = 1),
-        panel.grid.minor.x = element_blank())
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor = element_blank())
 
 options(scipen = 9)
 
 ggplot(compare_trip_data) +
-  geom_point(aes(mean_num_trips_before/1000, reorder(state, mean_num_trips_before), color = 'Average trips before pandamic')) +
-  geom_point(aes(mean_num_trips_after/1000, reorder(state, mean_num_trips_before), color = 'Average trips after pandamic')) +
-  ggtitle("Number of trips before and after pandamic", sub = "sorted by before pandemic") + ylab("State") + xlab("Averaged daily trip number(in thousand)")+ 
-  theme_dotplot+ 
-  theme(axis.text=element_text(size=11), 
-        axis.title=element_text(size=11, face="bold"),
-        plot.title = element_text(size = 14, face = "bold"))
+  geom_point(aes(mean_num_trips_before/1000, reorder(state, mean_num_trips_before), color = 'Average trips before COVID')) +
+  geom_point(aes(mean_num_trips_after/1000, reorder(state, mean_num_trips_before), color = 'Average trips after COVID')) +
+  ggtitle("Number of trips before and after pandamic", sub = "sorted by before pandemic") + ylab("State") + xlab("Averaged daily trip number (in thousand)")+ theme_dotplot+ 
+  theme(axis.text=element_text(size=12), 
+        axis.title=element_text(size=12, face="bold"),
+        plot.title= element_text(size = 15, face = "bold"))
 ```
 
 Some observations can be made based on the above graph. The first and foremost one is that for all states, the averaged number of trips after the pandemic is less than the value before. It means that people's mobility level decreased regardless of the state. The plot also shows that the states with top five trip numbers before pandemic are CA, TX, NY, FL, IL, which are also top five states with most trips after pandemic. 
@@ -639,7 +639,7 @@ ggplot(state_agg, aes(y = Freq/1000000, axis1 = state, axis2 = `Trips in Differe
   scale_fill_brewer(type = "qual", palette = "Set1") +
   facet_wrap(~covid, scales = "free") +
   labs(y="Frequency") + 
-  ggtitle("How far does people travel during pandemic (in millions)") + theme_grey(22)
+  ggtitle("How far does people travel during pandemic (in millions)") + theme_grey(25)
 #+theme(axis.text=element_text(size=14), axis.title=element_text(size=16,face="bold"))
 ```
 
