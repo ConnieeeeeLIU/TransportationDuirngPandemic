@@ -54,7 +54,7 @@ vis_miss(transportation_data_part)
 ## Dataset 3: COVID-19 statistics
 
 Below is the graph for the missing data situation for COVID-19 data set. 
-```{r covid }
+```{r covid, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE, results='hide'}
 library(visdat)
 library(covid19.analytics)
 library(coronavirus)
