@@ -1,121 +1,121 @@
-"","date","TransportationMethod","Frequency"
-"1",2019-05-01,"Airline-International",9640000
-"2",2019-06-01,"Airline-International",9630000
-"3",2019-07-01,"Airline-International",9580000
-"4",2019-08-01,"Airline-International",9580000
-"5",2019-09-01,"Airline-International",9640000
-"6",2019-10-01,"Airline-International",9720000
-"7",2019-11-01,"Airline-International",9750000
-"8",2019-12-01,"Airline-International",9710000
-"9",2020-01-01,"Airline-International",9770000
-"10",2020-02-01,"Airline-International",9200000
-"11",2020-03-01,"Airline-International",4520000
-"12",2020-04-01,"Airline-International",130000
-"13",2020-05-01,"Airline-International",180000
-"14",2020-06-01,"Airline-International",350000
-"15",2020-07-01,"Airline-International",920000
-"16",2020-08-01,"Airline-International",1200000
-"17",2020-09-01,"Airline-International",1580000
-"18",2020-10-01,"Airline-International",2170000
-"19",2020-11-01,"Airline-International",2850000
-"20",2020-12-01,"Airline-International",3320000
-"21",2019-05-01,"Airline-Domestic",67300000
-"22",2019-06-01,"Airline-Domestic",67730000
-"23",2019-07-01,"Airline-Domestic",67790000
-"24",2019-08-01,"Airline-Domestic",67840000
-"25",2019-09-01,"Airline-Domestic",68320000
-"26",2019-10-01,"Airline-Domestic",67990000
-"27",2019-11-01,"Airline-Domestic",69220000
-"28",2019-12-01,"Airline-Domestic",69110000
-"29",2020-01-01,"Airline-Domestic",69900000
-"30",2020-02-01,"Airline-Domestic",69430000
-"31",2020-03-01,"Airline-Domestic",33150000
-"32",2020-04-01,"Airline-Domestic",2860000
-"33",2020-05-01,"Airline-Domestic",7830000
-"34",2020-06-01,"Airline-Domestic",15070000
-"35",2020-07-01,"Airline-Domestic",20300000
-"36",2020-08-01,"Airline-Domestic",22540000
-"37",2020-09-01,"Airline-Domestic",25510000
-"38",2020-10-01,"Airline-Domestic",27250000
-"39",2020-11-01,"Airline-Domestic",26840000
-"40",2020-12-01,"Airline-Domestic",27860000
-"41",2019-05-01,"Ridership - Fixed Route Bus",399640786
-"42",2019-06-01,"Ridership - Fixed Route Bus",362002815
-"43",2019-07-01,"Ridership - Fixed Route Bus",369342381
-"44",2019-08-01,"Ridership - Fixed Route Bus",384106237
-"45",2019-09-01,"Ridership - Fixed Route Bus",396133294
-"46",2019-10-01,"Ridership - Fixed Route Bus",426411565
-"47",2019-11-01,"Ridership - Fixed Route Bus",371770204
-"48",2019-12-01,"Ridership - Fixed Route Bus",352171097
-"49",2020-01-01,"Ridership - Fixed Route Bus",374592819
-"50",2020-02-01,"Ridership - Fixed Route Bus",363612341
-"51",2020-03-01,"Ridership - Fixed Route Bus",258934722
-"52",2020-04-01,"Ridership - Fixed Route Bus",109981216
-"53",2020-05-01,"Ridership - Fixed Route Bus",130058114
-"54",2020-06-01,"Ridership - Fixed Route Bus",159961885
-"55",2020-07-01,"Ridership - Fixed Route Bus",181339529
-"56",2020-08-01,"Ridership - Fixed Route Bus",185322500
-"57",2020-09-01,"Ridership - Fixed Route Bus",179957308
-"58",2020-10-01,"Ridership - Fixed Route Bus",186600864
-"59",2020-11-01,"Ridership - Fixed Route Bus",167551704
-"60",2020-12-01,"Ridership - Fixed Route Bus",166062627
-"61",2019-05-01,"Ridership - Urban Rail",421141236
-"62",2019-06-01,"Ridership - Urban Rail",398791173
-"63",2019-07-01,"Ridership - Urban Rail",411609150
-"64",2019-08-01,"Ridership - Urban Rail",410227190
-"65",2019-09-01,"Ridership - Urban Rail",410891088
-"66",2019-10-01,"Ridership - Urban Rail",448800841
-"67",2019-11-01,"Ridership - Urban Rail",405015198
-"68",2019-12-01,"Ridership - Urban Rail",401917786
-"69",2020-01-01,"Ridership - Urban Rail",406379123
-"70",2020-02-01,"Ridership - Urban Rail",391628113
-"71",2020-03-01,"Ridership - Urban Rail",219333174
-"72",2020-04-01,"Ridership - Urban Rail",43368753
-"73",2020-05-01,"Ridership - Urban Rail",50509907
-"74",2020-06-01,"Ridership - Urban Rail",74727973
-"75",2020-07-01,"Ridership - Urban Rail",99275522
-"76",2020-08-01,"Ridership - Urban Rail",106955122
-"77",2020-09-01,"Ridership - Urban Rail",124264892
-"78",2020-10-01,"Ridership - Urban Rail",136852603
-"79",2020-11-01,"Ridership - Urban Rail",118107003
-"80",2020-12-01,"Ridership - Urban Rail",118124265
-"81",2019-05-01,"Freight-Rail Intermodal Units",1049163
-"82",2019-06-01,"Freight-Rail Intermodal Units",1075974
-"83",2019-07-01,"Freight-Rail Intermodal Units",1314363
-"84",2019-08-01,"Freight-Rail Intermodal Units",1089839
-"85",2019-09-01,"Freight-Rail Intermodal Units",1329532
-"86",2019-10-01,"Freight-Rail Intermodal Units",1063908
-"87",2019-11-01,"Freight-Rail Intermodal Units",1019780
-"88",2019-12-01,"Freight-Rail Intermodal Units",1189369
-"89",2020-01-01,"Freight-Rail Intermodal Units",1046672
-"90",2020-02-01,"Freight-Rail Intermodal Units",997811
-"91",2020-03-01,"Freight-Rail Intermodal Units",935380
-"92",2020-04-01,"Freight-Rail Intermodal Units",1095423
-"93",2020-05-01,"Freight-Rail Intermodal Units",912922
-"94",2020-06-01,"Freight-Rail Intermodal Units",1004933
-"95",2020-07-01,"Freight-Rail Intermodal Units",1295960
-"96",2020-08-01,"Freight-Rail Intermodal Units",1122954
-"97",2020-09-01,"Freight-Rail Intermodal Units",1423883
-"98",2020-10-01,"Freight-Rail Intermodal Units",1169874
-"99",2020-11-01,"Freight-Rail Intermodal Units",1136695
-"100",2020-12-01,"Freight-Rail Intermodal Units",1334495
-"101",2019-05-01,"Freight-Rail Carloads",1023136
-"102",2019-06-01,"Freight-Rail Carloads",1023394
-"103",2019-07-01,"Freight-Rail Carloads",1264354
-"104",2019-08-01,"Freight-Rail Carloads",1055024
-"105",2019-09-01,"Freight-Rail Carloads",1239455
-"106",2019-10-01,"Freight-Rail Carloads",977406
-"107",2019-11-01,"Freight-Rail Carloads",955392
-"108",2019-12-01,"Freight-Rail Carloads",1143990
-"109",2020-01-01,"Freight-Rail Carloads",950102
-"110",2020-02-01,"Freight-Rail Carloads",927608
-"111",2020-03-01,"Freight-Rail Carloads",899673
-"112",2020-04-01,"Freight-Rail Carloads",980535
-"113",2020-05-01,"Freight-Rail Carloads",740171
-"114",2020-06-01,"Freight-Rail Carloads",794256
-"115",2020-07-01,"Freight-Rail Carloads",1042017
-"116",2020-08-01,"Freight-Rail Carloads",898227
-"117",2020-09-01,"Freight-Rail Carloads",1119546
-"118",2020-10-01,"Freight-Rail Carloads",912772
-"119",2020-11-01,"Freight-Rail Carloads",900194
-"120",2020-12-01,"Freight-Rail Carloads",1101324
+date,TransportationMethod,Frequency
+2019/5/1,Airline-International,9640000
+2019/6/1,Airline-International,9630000
+2019/7/1,Airline-International,9580000
+2019/8/1,Airline-International,9580000
+2019/9/1,Airline-International,9640000
+2019/10/1,Airline-International,9720000
+2019/11/1,Airline-International,9750000
+2019/12/1,Airline-International,9710000
+2020/1/1,Airline-International,9770000
+2020/2/1,Airline-International,9200000
+2020/3/1,Airline-International,4520000
+2020/4/1,Airline-International,130000
+2020/5/1,Airline-International,180000
+2020/6/1,Airline-International,350000
+2020/7/1,Airline-International,920000
+2020/8/1,Airline-International,1200000
+2020/9/1,Airline-International,1580000
+2020/10/1,Airline-International,2170000
+2020/11/1,Airline-International,2850000
+2020/12/1,Airline-International,3320000
+2019/5/1,Airline-Domestic,67300000
+2019/6/1,Airline-Domestic,67730000
+2019/7/1,Airline-Domestic,67790000
+2019/8/1,Airline-Domestic,67840000
+2019/9/1,Airline-Domestic,68320000
+2019/10/1,Airline-Domestic,67990000
+2019/11/1,Airline-Domestic,69220000
+2019/12/1,Airline-Domestic,69110000
+2020/1/1,Airline-Domestic,69900000
+2020/2/1,Airline-Domestic,69430000
+2020/3/1,Airline-Domestic,33150000
+2020/4/1,Airline-Domestic,2860000
+2020/5/1,Airline-Domestic,7830000
+2020/6/1,Airline-Domestic,15070000
+2020/7/1,Airline-Domestic,20300000
+2020/8/1,Airline-Domestic,22540000
+2020/9/1,Airline-Domestic,25510000
+2020/10/1,Airline-Domestic,27250000
+2020/11/1,Airline-Domestic,26840000
+2020/12/1,Airline-Domestic,27860000
+2019/5/1,Ridership - Fixed Route Bus,399640786
+2019/6/1,Ridership - Fixed Route Bus,362002815
+2019/7/1,Ridership - Fixed Route Bus,369342381
+2019/8/1,Ridership - Fixed Route Bus,384106237
+2019/9/1,Ridership - Fixed Route Bus,396133294
+2019/10/1,Ridership - Fixed Route Bus,426411565
+2019/11/1,Ridership - Fixed Route Bus,371770204
+2019/12/1,Ridership - Fixed Route Bus,352171097
+2020/1/1,Ridership - Fixed Route Bus,374592819
+2020/2/1,Ridership - Fixed Route Bus,363612341
+2020/3/1,Ridership - Fixed Route Bus,258934722
+2020/4/1,Ridership - Fixed Route Bus,109981216
+2020/5/1,Ridership - Fixed Route Bus,130058114
+2020/6/1,Ridership - Fixed Route Bus,159961885
+2020/7/1,Ridership - Fixed Route Bus,181339529
+2020/8/1,Ridership - Fixed Route Bus,185322500
+2020/9/1,Ridership - Fixed Route Bus,179957308
+2020/10/1,Ridership - Fixed Route Bus,186600864
+2020/11/1,Ridership - Fixed Route Bus,167551704
+2020/12/1,Ridership - Fixed Route Bus,166062627
+2019/5/1,Ridership - Urban Rail,421141236
+2019/6/1,Ridership - Urban Rail,398791173
+2019/7/1,Ridership - Urban Rail,411609150
+2019/8/1,Ridership - Urban Rail,410227190
+2019/9/1,Ridership - Urban Rail,410891088
+2019/10/1,Ridership - Urban Rail,448800841
+2019/11/1,Ridership - Urban Rail,405015198
+2019/12/1,Ridership - Urban Rail,401917786
+2020/1/1,Ridership - Urban Rail,406379123
+2020/2/1,Ridership - Urban Rail,391628113
+2020/3/1,Ridership - Urban Rail,219333174
+2020/4/1,Ridership - Urban Rail,43368753
+2020/5/1,Ridership - Urban Rail,50509907
+2020/6/1,Ridership - Urban Rail,74727973
+2020/7/1,Ridership - Urban Rail,99275522
+2020/8/1,Ridership - Urban Rail,106955122
+2020/9/1,Ridership - Urban Rail,124264892
+2020/10/1,Ridership - Urban Rail,136852603
+2020/11/1,Ridership - Urban Rail,118107003
+2020/12/1,Ridership - Urban Rail,118124265
+2019/5/1,Freight-Rail Intermodal Units,1049163
+2019/6/1,Freight-Rail Intermodal Units,1075974
+2019/7/1,Freight-Rail Intermodal Units,1314363
+2019/8/1,Freight-Rail Intermodal Units,1089839
+2019/9/1,Freight-Rail Intermodal Units,1329532
+2019/10/1,Freight-Rail Intermodal Units,1063908
+2019/11/1,Freight-Rail Intermodal Units,1019780
+2019/12/1,Freight-Rail Intermodal Units,1189369
+2020/1/1,Freight-Rail Intermodal Units,1046672
+2020/2/1,Freight-Rail Intermodal Units,997811
+2020/3/1,Freight-Rail Intermodal Units,935380
+2020/4/1,Freight-Rail Intermodal Units,1095423
+2020/5/1,Freight-Rail Intermodal Units,912922
+2020/6/1,Freight-Rail Intermodal Units,1004933
+2020/7/1,Freight-Rail Intermodal Units,1295960
+2020/8/1,Freight-Rail Intermodal Units,1122954
+2020/9/1,Freight-Rail Intermodal Units,1423883
+2020/10/1,Freight-Rail Intermodal Units,1169874
+2020/11/1,Freight-Rail Intermodal Units,1136695
+2020/12/1,Freight-Rail Intermodal Units,1334495
+2019/5/1,Freight-Rail Carloads,1023136
+2019/6/1,Freight-Rail Carloads,1023394
+2019/7/1,Freight-Rail Carloads,1264354
+2019/8/1,Freight-Rail Carloads,1055024
+2019/9/1,Freight-Rail Carloads,1239455
+2019/10/1,Freight-Rail Carloads,977406
+2019/11/1,Freight-Rail Carloads,955392
+2019/12/1,Freight-Rail Carloads,1143990
+2020/1/1,Freight-Rail Carloads,950102
+2020/2/1,Freight-Rail Carloads,927608
+2020/3/1,Freight-Rail Carloads,899673
+2020/4/1,Freight-Rail Carloads,980535
+2020/5/1,Freight-Rail Carloads,740171
+2020/6/1,Freight-Rail Carloads,794256
+2020/7/1,Freight-Rail Carloads,1042017
+2020/8/1,Freight-Rail Carloads,898227
+2020/9/1,Freight-Rail Carloads,1119546
+2020/10/1,Freight-Rail Carloads,912772
+2020/11/1,Freight-Rail Carloads,900194
+2020/12/1,Freight-Rail Carloads,1101324
