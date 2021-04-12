@@ -1,5 +1,9 @@
 # Results
 
+March 13 — Trump Declares COVID-19 a National Emergency
+
+President Donald Trump declares the novel coronavirus a national emergency, which unlocks billions of dollars in federal funding to fight the disease’s spread.
+
 ```{r setup}
 library(tidyverse)
 library(dplyr)
@@ -9,9 +13,9 @@ library(lubridate)
 library(reshape2)
 ```
 
-### Number of daily trips people make nationally.
+### Time series: Number of daily trips people make nationally.
 
-Time series plot
+The number of trips that people make on daily basis can be a useful metric to measure people's mobility level. Among the trips for individual's daily basis, the commute between home and working place usually takes a huge part of the statistics. Due to the publication of quarantine rules and working from home policy, the commute need largely decreases and people are encouraged to stay at home unless it is essential. Hence, the number of trips on a daily basis is expected to decrease. To investigate how people's mobility level really behaves and varies, we present the graph for people's trip numbers from national level from April 2019 to March 2020, which includes data from a year before the Covid-19 outbreak and a year after the pandemic. 
 
 ```{r time series, fig.height = 6, fig.width = 10}
 # r, fig.height = 6, fig.width = 10
@@ -64,9 +68,128 @@ ggplot(national_data, aes(Date, `Number of Trips`/1000000)) +
     theme_bw(16)
 ```
 
-### multiple Cleveland dot plot
+Above time series plot contains how many daily trips are made nationally, weekly averaged number of trips(blue curve), as well as a smoothed daily trip number to better demonstrate the trend within the time series. From the plot, the number of trips in the vertical axis are presented in million unit to have a better scale. The yellow highlighted rectangular part represented the COVID-19 outbreak in the US after March 06, 2020. From the graph, we can clearly find that the number of trips largely decreased after the pandemic and has a huge drop right after president Trump declare the national emergency, which shows the same trend as expected. From the smoothed daily trip(pink) curve, there is upward trend regarding the number of trips people made nationally since December 2020. In December 2020, the United States begins its public vaccinations, which could be one of the reasons of the increasing trend in trip numbers since people are more tend to make trips after getting vaccinated. Also, the establishment of the vaccine station also requires daily commute trips to doctors and health-workers. Up to March 2020, the number of trips nationally, although has increased a lot comparing with the numbers in the late 2020, however, still lower than the common level before the COVID-19 outbreak. 
 
-```{r cleveland, fig.height = 6, fig.width = 10}
+### Histogram: trip length distribution before and after COVID-19
+
+After having an overall impression on how the total trips number changes, we want to have a close look at how trip numbers with different distance length changes due to COVID-19. Hence, we present following stack histogram in which the height of each stack shows the numbers of trips for different distance category. The distance category is the original data set are: trips below 1 mile, between 1-3 miles, 3-5 miles, 5-10 miles, 10-25 miles, 25-50 miles, 50-100 miles, 100-250 miles, 250-500 miles and above 500 miles. Since the trips with distance longer than 50 miles takes a relatively small percentage comparing with other distance categories, to make it more clear on the histogram and avoid having too much catrgories that can not provide much information, we deicide to combine the number of trips that are above 50 miles to one category called `Number of Trips >= 50` and then create the histogram based on the new categories. The total height of the bars represent the total number of trips and the vertical axis is scaled to millions in unit. In the plot, each distance category has a unique color to better show the percentage distribution within the total number of trips before and after the pandemic. The time range for splitting the pandemic is 2020-03-13.
+
+```{r hist}
+library(reshape2)
+library(reshape)
+library(tidyverse)
+library(dplyr)
+national_data <- readr::read_csv("data/clean/National.csv", 
+                            col_types = cols(
+  .default = col_double(),
+  Level = col_character(),
+  Date = col_date(format = ""),
+  `State FIPS` = col_character(),
+  `State Postal Code` = col_character(),
+  `County FIPS` = col_character(),
+  `County Name` = col_character(),
+  `Row ID` = col_character()
+))
+
+national_data$`Number of Trips >= 50` <- national_data$`Number of Trips 50-100` + national_data$`Number of Trips 100-250` + national_data$`Number of Trips 250-500` + national_data$`Number of Trips >=500`
+
+national_data_part <- national_data[,11:16]
+national_data_part$`Number of Trips >= 50`<- national_data$`Number of Trips >= 50`
+national_data_part$Date <- national_data$Date
+national_data_part$covid <- ifelse(national_data_part$Date > as.Date('2020-03-13'), "after", "before")
+
+
+#national_data_part <- data.frame(national_data_part)
+mean_national_data <- reshape2::melt(national_data_part, id.vars = c('Date','covid'),
+                           variable.name='distance',
+                           value.name='Freq') 
+
+#sum of Freq! 
+mean_national_data <- mean_national_data %>%
+  group_by(covid, distance) %>%
+  summarize(Freq = sum(Freq)) 
+
+ggplot(mean_national_data) +
+      geom_col(aes(x = reorder(covid, desc(covid)), y = Freq/1000000, fill = distance)) +  
+  scale_fill_brewer(type = "qual", palette = "PRGn") +
+  ggtitle("Total trips before and after pandemic")  +
+  xlab("Covid") + ylab("Number of trips (in millions)") + 
+  theme_bw()
+
+```
+
+The height of the bars decreased from before to after, which shows that the total number of trips decreased after the pandemic. As for the distributions for each distance categories, since the number of trips of each categories decreases and the whole trip number decreases as well, it is not very obvious to see how the percentage of each categories changes. However, we can still find that for the trips above 50 miles, the percentage seems to increase and for trips between 1-3 miles, the percentage decreases. Before examining the data, we are intuitively expecting that long-trip distance is decreased since people can not travel between cities. To have a more rigorous conclusion on how the percentage of each distance categories changes, we provide numerical calculations below. 
+
+```{r }
+mean_nationa_data_arrange<-mean_national_data[1:7,]
+mean_nationa_data_arrange <- cbind(mean_nationa_data_arrange,mean_national_data[8:14,3])
+colnames(mean_nationa_data_arrange)[c(3,4)] <- c('after_Freq','before_Freq')
+mean_nationa_data_arrange$after_prec = mean_nationa_data_arrange$after_Freq/sum(mean_nationa_data_arrange$after_Freq)
+mean_nationa_data_arrange$before_prec = mean_nationa_data_arrange$before_Freq/sum(mean_nationa_data_arrange$before_Freq)
+mean_nationa_data_arrange$perc_change = mean_nationa_data_arrange$after_prec-mean_nationa_data_arrange$before_prec
+trip_perc_change<- mean_nationa_data_arrange[,c(2,7)]
+#mean_nationa_data_arrange
+trip_perc_change
+```
+The `perc_change` column is calculated by using the percentage before the pandemic minus the percentage after the pandemic. Hence the negative value indicates the percentage decreases and a positive value indicate that the percentage increases. The calculation first proved our observation that the percentage of trips longer than 50 miles increases and the percentage of trips between 1-3 miles decreases. Furthermore, the calculation shows that actually the percentage for middle distance trips (i.e. trips from 1-25 miles) decreased, but for short and long distance trips (i.e. below 1 mile or above 25 miles) increased. 
+
+Combining with some real-world experience, one of the reasons for the decreasing in middle distance trips is that the middle trip distances includes daily commutes from home to office and some entertain activities like going to shopping malls or movie theaters. During pandemic, such activities is no longer available due to certain regulations hence the opportunities for people making middle-distance trips decreases. Short distance trips include the situation where people drive to the supermarket to buy groceries and this kind of need increases since people stay at home all day and need to buy fresh groceries more frequently The extreme long distance trips contains the scenarios where people drive to their family members' house, or go back to hometown. This need also increases since more people decided to go back home from big cities. 
+
+Therefore, the changes in the percentages are reasonable and explainable after second thoughts and is a very interesting finding that we are not expecting from the beginning. 
+
+
+### Multiple Cleveland dot plot: number of trips before and after pandemic in state level
+
+After having an idea about how the number of trips changes in the national level, we would like to go into the state level to see how the averaged number of trips change before and after the pandemic for each state. We select the averaged trip number from 2019-04-01 to 2020-03-13 as the averaged trip number before pandemic and take the averaged number from 2020-03-13 to 2021-03-20 as the one after the pandemic. As a result, we present the multiple Cleveland dot plot, where the averaged daily number of trips change before and after the pandemic for each state is displayed and the order of the state is sorted according to the number of averaged trip numbers before the pandemic. 
+
+```{r c 2, fig.height = 6, fig.width = 10}
+library(covid19.analytics)
+library(coronavirus)
+library(tidyverse)
+
+state_data <- readr::read_csv("data/clean/State.csv")
+#state_data <- state_data %>% 
+#  rename(state = `State Postal Code`)
+
+
+colnames(state_data)[5] <- 'state'
+
+state_data_after <- dplyr::filter(state_data, Date >= "2020-03-06") # to be changed if start date changes
+state_data_before <- dplyr::filter(state_data, Date < "2020-03-06")
+
+mean_per_state_before <- state_data_before %>% 
+  group_by(state) %>% 
+  summarize(mean_nstay_before = mean(`Population Not Staying at Home`), mean_num_trips_before = mean(`Number of Trips`))
+
+mean_per_state_after <- state_data_after %>% 
+  group_by(state) %>% 
+  summarize(mean_nstay_after = mean(`Population Not Staying at Home`), mean_num_trips_after = mean(`Number of Trips`))
+
+#mean_per_state<-mean_per_state %>% 
+#  rename(state = `State Postal Code`)
+
+compare_trip_data = merge(x = mean_per_state_before, y = mean_per_state_after, by.x = "state", by.y = "state")
+
+# create a theme for dot plots, which can be reused
+theme_dotplot <- theme_bw(14) +
+    theme(axis.text.y = element_text(size = rel(.5)),
+        axis.ticks.y = element_blank(),
+        axis.title.x = element_text(size = rel(.75)),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size = 1),
+        panel.grid.minor.x = element_blank())
+
+options(scipen = 9)
+
+ggplot(compare_trip_data) +
+  geom_point(aes(mean_num_trips_before/1000, reorder(state, mean_num_trips_before), color = 'Average trips before pandamic')) +
+  geom_point(aes(mean_num_trips_after/1000, reorder(state, mean_num_trips_before), color = 'Average trips after pandamic')) +
+  ggtitle("Number of trips before and after pandamic", sub = "sorted by before pandemic") + ylab("State") + xlab("Averaged daily trip number(in thousand)")+ theme_dotplot
+```
+
+Some observations can be made based on the above graph. The first and foremost one is that for all states, the averaged number of trips after the pandemic is less than the value before. It means that people's mobility level decreased regardless of the state. The plot also shows that the states with top five trip numbers before pandemic are CA, TX, NY, FL, IL, which are also top five states with most trips after pandemic. 
+
+```{r parallel, fig.height = 6, fig.width = 10, eval = FALSE}
 library(covid19.analytics)
 library(coronavirus)
 library(tidyverse)
@@ -75,7 +198,7 @@ library(ggplot2)
 library(reshape2)
 
 state_data <- readr::read_csv("data/clean/State.csv")
-state_data <- dplyr::filter(state_data, Date >= "2020-04-01") # to be changed if start date changes
+state_data <- dplyr::filter(state_data, Date >= "2020-03-13") # to be changed if start date changes
 stay_per_state <- state_data %>% 
   group_by(`State Postal Code`) %>% 
   summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
@@ -116,63 +239,86 @@ theme_dotplot <- theme_bw(14) +
         panel.grid.major.y = element_line(size = 1),
         panel.grid.minor.x = element_blank())
 
-options(scipen = 9)
+#options(scipen = 9)
 
 ggplot(covid_trip_data) +
   geom_point(aes(mean_num_trips/100, reorder(state, mean_num_trips), color = 'Average number of trips')) +
   geom_point(aes(sum_confirmed, reorder(state, mean_num_trips), color = 'Sum of confirmed case')) +
-  ggtitle("Number of trips and confirmed case", sub = "sorted by trips value") + ylab("State") +
+  ggtitle("Number of trips and confirmed case", sub = "sorted by trips value") + ylab("State") + xlab("")
   theme_dotplot
 ```
 
-Cleveland dot plot of number of trips before and after pandemic
-```{r c 2, fig.height = 6, fig.width = 10}
+```{r, fig.height = 5, fig.width = 10, eval = FALSE}
+library(parcoords)
+library(GGally)
 library(covid19.analytics)
 library(coronavirus)
 library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
 
 state_data <- readr::read_csv("data/clean/State.csv")
-#state_data <- state_data %>% 
-#  rename(state = `State Postal Code`)
+state_data <- dplyr::filter(state_data, Date >= "2020-03-13") # to be changed if start date changes
+stay_per_state <- state_data %>% 
+  group_by(`State Postal Code`) %>% 
+  summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
 
+stay_per_state$stay_per <- stay_per_state$mean_stay/(stay_per_state$mean_notstay+stay_per_state$mean_stay)
 
-colnames(state_data)[5] <- 'state'
+colnames(stay_per_state) <- c("state","mean_stay","mean_notstay","stay_per"  )
+#stay_per_state_rename <- stay_per_state %>% rename(state=`State Postal Code`)
 
-state_data_after <- dplyr::filter(state_data, Date >= "2020-04-01") # to be changed if start date changes
-state_data_before <- dplyr::filter(state_data, Date < "2020-04-01")
+covid_data <- covid19.data()
+covid_data <- dplyr::filter(covid_data, Country_Region == "US")
 
-mean_per_state_before <- state_data_before %>% 
-  group_by(state) %>% 
-  summarize(mean_nstay_before = mean(`Population Not Staying at Home`), mean_num_trips_before = mean(`Number of Trips`))
+covid_sum <- covid_data %>% 
+  group_by(`Province_State`) %>% 
+  summarize(sum_confirmed = sum(Confirmed), sum_death = sum(Deaths))
 
-mean_per_state_after <- state_data_after %>% 
-  group_by(state) %>% 
-  summarize(mean_nstay_after = mean(`Population Not Staying at Home`), mean_num_trips_after = mean(`Number of Trips`))
+covid_sum$state <- state.abb[match(covid_sum$Province_State,state.name)]
+covid_sum[10,4] = 'DC' #Columbia District can not be matched with above function
+covid_sum <- dplyr::filter(covid_sum, state %in% stay_per_state$state)
+
+mean_per_state <- state_data %>% 
+  group_by(`State Postal Code`) %>% 
+  summarize(mean_stay = mean(`Population Not Staying at Home`), mean_num_trips = mean(`Number of Trips`))
 
 #mean_per_state<-mean_per_state %>% 
 #  rename(state = `State Postal Code`)
+colnames(mean_per_state) <- c("state","mean_stay","mean_num_trips")
 
-compare_trip_data = merge(x = mean_per_state_before, y = mean_per_state_after, by.x = "state", by.y = "state")
+covid_trip_data <- merge(x = mean_per_state, y = covid_sum, by.x = "state", by.y = "state")
 
-# create a theme for dot plots, which can be reused
-theme_dotplot <- theme_bw(14) +
-    theme(axis.text.y = element_text(size = rel(.5)),
-        axis.ticks.y = element_blank(),
-        axis.title.x = element_text(size = rel(.75)),
-        panel.grid.major.x = element_blank(),
-        panel.grid.major.y = element_line(size = 1),
-        panel.grid.minor.x = element_blank())
+covid_trip_data <- subset(covid_trip_data, select = -c(Province_State,mean_stay))
 
-options(scipen = 9)
+#covid_trip_data2 <- covid_trip_data[order(-covid_trip_data$sum_confirmed),]
+covid_trip_data2<-covid_trip_data %>% arrange(desc(covid_trip_data$sum_confirmed))
 
-ggplot(compare_trip_data) +
-  geom_point(aes(mean_num_trips_before/1000, reorder(state, mean_num_trips_before), color = 'Average trips before pandamic')) +
-  geom_point(aes(mean_num_trips_after/1000, reorder(state, mean_num_trips_before), color = 'Average trips after pandamic')) +
-  ggtitle("Number of trips before and after pandamic", sub = "sorted by before") + ylab("State") +
-  theme_dotplot
+covid_trip_data3 <- covid_trip_data2[,c(1,3,4,2)]
+#covid_trip_data3<- covid_trip_data3 %>% column_to_rownames(., var = "state")
+p<- covid_trip_data3 %>% arrange(sum_confirmed) %>%
+  parcoords(
+    rownames = F
+    , brushMode = '1D-axes'
+    , reorderable = T
+    , queue = T
+    , alpha = .2
+    , color = list(
+      colorBy = 'state'
+      , colorScale = 'scaleOrdinal'
+      , colorScheme = 'schemeCategory10'
+    )
+    , withD3 = TRUE
+  )
+p
+
+ggparcoord(covid_trip_data3, columns=c(4,2,3), 
+           groupColumn = "state", alphaLines = 0.6, 
+           title = "Parallel Coordinate Plot showing trends for nutrition", scale = "center")+ theme_light()+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
 ```
-
 
 ### Scatterplot: Overview of Transportation and CovID-19
 
@@ -189,7 +335,7 @@ confirmed_ts <- dplyr::filter(confirmed_ts, Country.Region == "US")
 # Get daily new cases
 confirmed_ts <- growth.rate(confirmed_ts, staticPlt = FALSE)[['Changes']]
 
-national_confirmed <- melt(confirmed_ts, id.vars = c('geo.loc'),
+national_confirmed <- reshape2::melt(confirmed_ts, id.vars = c('geo.loc'),
                            variable.name='Date',
                            value.name='Confirmed')
 national_confirmed <- national_confirmed[, c('Date', 'Confirmed')] %>%  
@@ -224,21 +370,22 @@ ggplot(data=national_all, aes(x=Date, y=Confirmed))+
 ```
 
 
+### Map: Percent of people staying at home during COVID-19 pandemic.
 
-### Percent of people staying at home during COVID-19 pandemic.
+After reviewing trip numbers and COVID-19 confirmed cases at the nation level, our study drills down to the state level by showing state level home quarantine statistics on a map. The map of US states represents the average percentage of people who stayed at home after the outbreak (March 13, 2019) of the pandemic. The monochromatic color scheme was chosen to represent percentage values, with darker color representing higher percentage. This chart provides a clear view of contrast to both adjacent states and states that are farther apart, providing rich information to help compare home quarantine rates, therefore creating a holistic view of our analysis.
 
-Date after 2020-04-01
-https://github.com/wmurphyrd/fiftystater
-https://github.com/pdil/usmap/blob/master/resources/examples.R
+To a closer look at the chart, NY, CA and AK are among the states with highest percentage of people staying at home. From our previous analysis, NY and CA are among the top 5 states with the most averaged number of trips after the pandemic. Even though these two results may seems like a conflict at first glance, however, it may because that the number of trips is also correlated with the number of populations in the state. NY and CA have relatively higher population density among the states, thus it is not strange that they have more number of trips even if the quarantine percentages are the top two among all states.  
+
 ```{r map, fig.height = 6, fig.width = 10}
 library(tidyverse)
 library(dplyr)
 library(usmap)
 library(ggplot2)
 library(reshape2)
-
+#https://github.com/wmurphyrd/fiftystater
+#https://github.com/pdil/usmap/blob/master/resources/examples.R
 state_data <- readr::read_csv("data/clean/State.csv")
-state_data <- dplyr::filter(state_data, Date >= "2020-04-01") # to be changed if start date changes
+state_data <- dplyr::filter(state_data, Date >= "2020-03-13") # to be changed if start date changes
 stay_per_state <- state_data %>% 
   group_by(`State Postal Code`) %>% 
   summarize(mean_stay = mean(`Population Staying at Home`), mean_notstay = mean(`Population Not Staying at Home`))
@@ -252,14 +399,14 @@ state_perc_map_labeled <- plot_usmap(data = stay_per_state,
   scale_fill_continuous(low = "white", high = "blue", 
                         name = "Percentage of people at home", label = scales::comma) + 
   labs(title = "Percentage of people staying at home", 
-       subtitle = "Percentage Estimates for people stay at home for each state after 04/2020") +
+       subtitle = "Percentage Estimates for people stay at home for each state after pandemic") +
   theme(legend.position = "right")+
   theme(plot.title = element_text(size = 20, face = "bold"))
 
 state_perc_map_labeled$layers[[2]]$aes_params$size <- 3.5
 print(state_perc_map_labeled)
 ```
-Note: Did not manage to solve the label overlap problem :(
+
 
 
 ### Heatmap of people going out in each state
@@ -311,7 +458,7 @@ library(coronavirus)
 library(ggridges)
 covid <- covid19.data("ts-confirmed-US")
 covid <- covid[-which(colnames(covid) %in% c("Country_Region", "Lat", "Long_"))]
-state_confirmed <- melt(covid, id.vars = c('Province_State'),
+state_confirmed <- reshape2::melt(covid, id.vars = c('Province_State'),
                            variable.name='Date',
                            value.name='Confirmed_tot')
 
@@ -341,61 +488,27 @@ state_conf_weekly <- dplyr::filter(state_conf_weekly, Province_State %in% c('Cal
 #ggplot(state_confirmed, aes(x=Date, y=Province_State)) +
 #  geom_density_ridges()
 
-ggplot(state_conf_weekly, aes(x=Date, y=reorder(Province_State, avg_conf), height=avg_conf, group=Province_State, fill=stat(height))) +
+g<-ggplot(state_conf_weekly, aes(x=Date, y=reorder(Province_State, avg_conf), height=avg_conf, group=Province_State, fill=stat(height))) +
   geom_density_ridges_gradient(stat="identity", scale=1.2) +
   scale_fill_viridis_c(name = "Confirmed cases", option = "C") +
   labs(y="State",
        x="Date",
        title = "Daily new confirmed cases in top states")
-```
-
-### plot for trip length before and after Covid-19
-
-```{r hist}
-national_data <- readr::read_csv("data/clean/National.csv", 
-                            col_types = cols(
-  .default = col_double(),
-  Level = col_character(),
-  Date = col_date(format = ""),
-  `State FIPS` = col_character(),
-  `State Postal Code` = col_character(),
-  `County FIPS` = col_character(),
-  `County Name` = col_character(),
-  `Row ID` = col_character()
-))
-
-national_data$`Number of Trips >= 50` <- national_data$`Number of Trips 50-100` + national_data$`Number of Trips 100-250` + national_data$`Number of Trips 250-500` + national_data$`Number of Trips >=500`
-
-national_data_part <- national_data[,11:16]
-national_data_part$`Number of Trips >= 50`<- national_data$`Number of Trips >= 50`
-national_data_part$Date <- national_data$Date
-national_data_part$covid <- ifelse(national_data_part$Date > as.Date('2020-04-01'), "after", "before")
-
-mean_national_data <- melt(national_data_part, id.vars = c("Date","covid"),
-                           variable.name='distance',
-                           value.name='Freq') 
-mean_national_data <- mean_national_data %>%
-  group_by(covid, distance) %>%
-  summarize(Freq = sum(Freq))
-
-ggplot(mean_national_data) +
-      geom_col(aes(x = covid, y = Freq/1000000, fill = distance)) +  
-  scale_fill_brewer(type = "qual", palette = "PRGn") +
-  ggtitle("Trips before and after pandemic")  +
-  xlab("Covid") + ylab("Number of trips (in millions)") + 
-  theme_bw()
-
+g
 ```
 
 
-### Treemap for top five states where most people travelling around
+### Treemap for top five COVID-19 severe states 
+
+This interactive treemap provides another view of transportation patterns for the 5 states with most confirmed COVID-19 cases. Each state was represented by a large rectangle, with a unique color. Within each state, the number of trips was further broken out by small rectangles, providing a more granular view of transportation distance statistics. Thus, this treemap shows muti-layer of comparison in an efficient way by comparing trip information across states and by area of each rectangle indicating proportional volume of each dimension. Together with other charts, the treemap provides a nice summary of trip volumes under the pandemic. The top five states with most severe COVID-19 situation are California, Texas, New York, Florida and Illinois. 
+
 
 ```{r Treemap, fig.height = 6, fig.width = 10, eval=FALSE}
 library(treemap)
 library(dplyr)
 library(reshape2)
 state_data <- readr::read_csv("data/clean/State.csv")
-state_data <- dplyr::filter(state_data, Date >= "2020-03-01" & Date < "2021-03-01")
+state_data <- dplyr::filter(state_data, Date >= "2020-03-13" & Date < "2021-03-13")
 
 state_data$`Number of Trips >= 50` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
 state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
@@ -418,24 +531,24 @@ treemap(state_agg,
         vSize="Freq",
         type="index",
         palette = "Pastel1",
-        title = 'Treemap of state and number of trips',
+        title = 'Treemap of state and number of trips for each distance range',
         fontsize.title = 14, 
         fontsize.labels = 8, 
         fontsize.legend = 8,
         align.labels = list(c('center','center'), c('right','top'))) 
 ```
-```{r treemap, fig.height = 4, fig.width = 6, include = FALSE}
+
+```{r treemap, fig.height = 5, fig.width = 9, include = FALSE}
 #devtools::install_github("timelyportfolio/d3treeR")
-library(d3treeR)
 library(treemap)
 library(dplyr)
 library(reshape2)
 state_data <- readr::read_csv("data/clean/State.csv")
-state_data <- dplyr::filter(state_data, Date >= "2020-03-01" & Date < "2021-03-01")
+state_data <- dplyr::filter(state_data, Date >= "2020-03-13" & Date < "2021-03-13")
 
 state_data$`Number of Trips >= 50` <- state_data$`Number of Trips 50-100` + state_data$`Number of Trips 100-250` + state_data$`Number of Trips 250-500` + state_data$`Number of Trips >=500`
 state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
-state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
+state_agg <- reshape2::melt(state_agg, id.vars = c('State Postal Code','Date'),
                            variable.name='Trips in Different Distance',
                            value.name='Freq') 
 #%>% rename(state = `State Postal Code`)
@@ -446,9 +559,9 @@ state_agg <- state_agg %>%
            `Trips in Different Distance`) %>%
   summarize(Freq = sum(Freq))
 
-# Show alluvial chart of top 5 states where most people travelling around
-state_agg <- dplyr::filter(state_agg, state %in% c('MS', 'AL', 'AR', 'SC', 'LA'))
-
+# Show alluvial chart of top 5 states where most covid cases
+# state_agg <- dplyr::filter(state_agg, state %in% c('MS', 'AL', 'AR', 'SC', 'LA'))
+state_agg <- dplyr::filter(state_agg, state %in% c('CA', 'TX', 'FL', 'NY', 'IL'))
 
 treemap <- treemap(state_agg,
         index=c('state','Trips in Different Distance'),
@@ -461,13 +574,17 @@ treemap <- treemap(state_agg,
         fontsize.legend = 8,
         align.labels = list(c('center','center'), c('right','top'))) 
 ```
-Interactive! https://www.data-to-viz.com/graph/treemap.html
+
 
 ```{r interactive treemap}
+library(d3treeR)
+# Interactive! https://www.data-to-viz.com/graph/treemap.html
 # make it interactive ("rootname" becomes the title of the plot):
-d3tree2(treemap ,  rootname = 'Treemap of state and number of trips' )
-
+t<- d3tree3(treemap ,  rootname = 'Treemap of number of trips for top five states with most COVID-19 cases' )
+t
 ```
+
+This treemap shows trip information after the pandemic outbreak. Errands under 1 mile and small distance trips between 1 -  3 miles accounted for the majority of trips for the states with most confirmed cases. We can also find out that the total number of trips has contribution to total cases. 
 
 ### Alluvial chart showing type of travelling in terms of distance
 
@@ -483,7 +600,7 @@ state_data$`long trips` <- state_data$`Number of Trips 50-100` + state_data$`Num
 
 #state_agg <- state_data[-which(colnames(state_data) %in% c("X1", "Level", "State FIPS", "County FIPS", "County Name", "Population Staying at Home", "Population Not Staying at Home", "Row ID","Number of Trips", "Number of Trips 50-100", "Number of Trips 100-250", "Number of Trips 250-500", "Number of Trips >=500"))]
 state_agg <- state_data[which(colnames(state_data) %in% c("State Postal Code", "Date", "short trips", "medium trips", "long trips"))]
-state_agg <- melt(state_agg, id.vars = c('State Postal Code','Date'),
+state_agg <- reshape2::melt(state_agg, id.vars = c('State Postal Code','Date'),
                            variable.name='Trips in Different Distance',
                            value.name='Freq') 
 #%>% rename(state = `State Postal Code`)

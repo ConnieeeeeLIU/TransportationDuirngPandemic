@@ -1,8 +1,10 @@
 # Missing values
 
-Reference: https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html
+In this section, we present graphs using `visdat` package([visdat](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html)) to visual the missing patterns of our data sets. We present visualizations corresponding to each dataset to help readers to have a comprehensive impression on all the data sets. 
 
-Daily trips by distance
+## Dataset1: Trips by distance
+As described in section 2, this data set is about the number of trips by distance. First, we show the missing data visualizations. The horizontal axis displays the column in the data set and the vertical axis represents each observations. According to the label, the gray area indicates the missing value in the data set.
+
 ```{r national }
 library(tidyverse)
 library(dplyr)
@@ -22,36 +24,47 @@ national_data <- readr::read_csv("data/clean/National.csv",
 vis_dat(national_data)
 ```
 
+The plot shows that all the data for column `StateFIPS`, `State Postal Code`, `County FIPS` and `County Name` are missing.  However, in our project, we do not use these columns hence we can directly omit these columns in our following analysis. For other columns, there are no missing values.
 
-```{r n2 }
+```{r n2, fig.height = 3, fig.width = 7, eval = FALSE}
 vis_miss(national_data)
 ```
 
 
+## Dataset 2: Transportation data
+Similarly, we present the missing value plot for transportation data. Since the dataset contains 137 columns, to better display the result, we only select the columns that are used in our project. The time interval that is between 2019-05-01 to 2020-12-31.  
 
-
-Transportation data:
 ```{r transportation }
 library(visdat)
+library(dplyr)
 transportation_data <- readr::read_csv("data/clean/Transportation.csv")
-vis_dat(transportation_data)
+transportation_data <- dplyr::filter(transportation_data, Date >= "2019-05-01")
+transportation_data <- dplyr::filter(transportation_data, Date <= "2020-12-31")
+#cols <- c(2,9:11,14,128,130,132)
+transportation_data_part <- transportation_data[,c(2,9:11,14,128,130,132)]
+
+vis_dat(transportation_data_part)
+```
+The above graph shows that there are no missing values in the data set.
+
+```{r t2, eval = FALSE}
+vis_miss(transportation_data_part)
 ```
 
-```{r t2 }
-vis_miss(transportation_data)
-```
+## Dataset 3: COVID-19 statistics
 
-Covid data:
+Below is the graph for the missing data situation for COVID-19 data set. 
 ```{r covid }
 library(visdat)
 library(covid19.analytics)
 library(coronavirus)
 covid_data <- covid19.data()
 covid_data <- dplyr::filter(covid_data, Country_Region == "US")
-
 vis_dat(covid_data)
 ```
 
-```{r c2 }
+The graph shows that there are missing values in the `FIPS`, `Recovered`, `Active`, `Lat`, `Long_`, `Incident_Rate`, and `Case_fatility_ratio` have missing values. However, we only used the `Confirmed` and `Deaths` columns in the data hence we can omit these columns for our analysis. 
+
+```{r c2, eval = FALSE}
 vis_miss(covid_data)
 ```

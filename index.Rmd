@@ -7,3 +7,15 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+COVID-19 has been an ongoing global pandemic since 2019, reshaping everyone’s life. COVID-19 spreads when infected people interact closely with others. Main effective prevention methods are wearing masks and social distancing, hence quarantine rules and working-from-home policies have been published by the government. Since then, people's daily mobility patterns have been largely perturbed by the pandemic. However, when people are discussing the influence of COVID-19, they tend to mainly care about the number of confirmed cases. This study focuses on examining transportation and pandemic statistics, which ties to people's mobility level, with the hope of providing a view of pandemic influence on a large social scale. This study took March 13th, 2019 as the start date of COVID-19, in correspondence with Trump’s declaration of COVID-19 a National Emergency. 
+
+Our research investigates following questions: 
+
+  1). How many people choose to stay at home and how many trips people take when they are not at home? We are also interested in finding out people’s tendency to take trips in terms of each state.
+  
+  2). How transportation statistics change before and after the COVID pandemic and to which extent the pandemic is influencing people’s transportation preference? For example, is the distribution of trip distance changed after the pandemic?
+  
+  3). What is the relationship between people's trip behavior and the COVID-19 statistics? 
+
+With the help of data sets describing people's trip behaviors, transportation patterns and pandemic statistics, we utilize thorough visualizations that cover people's trip pattern at both national and state level, discussed the relationship between trips and confirmed cases, in combination with time series representation that captures the trend both prior to and after the outbreak. That's how we hope to answer above questions through this study. 
+
