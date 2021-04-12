@@ -24,8 +24,9 @@ national_data <- readr::read_csv("data/clean/National.csv",
 vis_dat(national_data)
 ```
 
-```{r n2, fig.height = 4, fig.width = 13}
-vis_miss(national_data)+theme(axis.text.x = element_text(angle = 70),axis.text=element_text(size=9))
+```{r n2, fig.height = 6, fig.width = 13}
+vis_miss(national_data)+
+    theme(axis.text.x = element_text(angle = 70), axis.text.x.top =element_text(size=11), axis.title.y.left = element_text(size=12), legend.text = element_text(size=11))
 ```
 
 The plot shows that all the data for column `StateFIPS`, `State Postal Code`, `County FIPS` and `County Name` are missing.  However, in our project, we do not use these columns hence we can directly omit these columns in our following analysis. For other columns, there are no missing values.
@@ -45,8 +46,9 @@ transportation_data_part <- transportation_data[,c(3,8,9,11,12,13,14)]
 vis_dat(transportation_data_part)
 ```
 
-```{r t2, fig.height = 5, fig.width = 11}
-vis_miss(transportation_data_part)+theme(axis.text.x = element_text(angle = 70),axis.text=element_text(size=9))
+```{r t2, fig.height = 7, fig.width = 11}
+vis_miss(transportation_data_part)+
+    theme(axis.text.x = element_text(angle = 70), axis.text.x.top =element_text(size=11), axis.title.y.left = element_text(size=12), legend.text = element_text(size=11))
 ```
 
 The above graph shows that there are no missing values in the data set.
@@ -64,9 +66,9 @@ vis_dat(covid_data)
 ```
 
 
-```{r c2, fig.height = 4, fig.width = 13}
+```{r c2, fig.height = 6, fig.width = 13.5}
 vis_miss(covid_data)+ 
-  theme(axis.text.x = element_text(angle = 70),axis.text=element_text(size=9))
+  theme(axis.text.x = element_text(angle = 70), axis.text.x.top =element_text(size=11), axis.title.y.left = element_text(size=12), legend.text = element_text(size=11))
 ```
 
 The graph shows that there are missing values in the `FIPS`, `Recovered`, `Active`, `Lat`, `Long_`, `Incident_Rate`, and `Case_fatility_ratio` have missing values. However, we only used the `Confirmed` and `Deaths` columns in the data hence we can omit these columns for our analysis. 
