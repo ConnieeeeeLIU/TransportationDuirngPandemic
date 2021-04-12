@@ -1,9 +1,5 @@
 # Results
 
-March 13 — Trump Declares COVID-19 a National Emergency
-
-President Donald Trump declares the novel coronavirus a national emergency, which unlocks billions of dollars in federal funding to fight the disease’s spread.
-
 ```{r setup}
 library(tidyverse)
 library(dplyr)
@@ -15,7 +11,7 @@ library(reshape2)
 
 ## Time series: Number of daily trips people make nationally.
 
-The number of trips that people make on daily basis can be a useful metric to measure people's mobility level. Among the trips for individual's daily basis, the commute between home and working place usually takes a huge part of the statistics. Due to the publication of quarantine rules and working from home policy, the commute need largely decreases and people are encouraged to stay at home unless it is essential. Hence, the number of trips on a daily basis is expected to decrease. To investigate how people's mobility level really behaves and varies, we present the graph for people's trip numbers from national level from April 2019 to March 2020, which includes data from a year before the Covid-19 outbreak and a year after the pandemic. 
+The number of trips that people make on daily basis can be a useful metric to measure people's mobility level. Among the trips for individual's daily basis, the commute between home and working place usually takes a huge part of the statistics. Due to the publication of quarantine rules and working from home policy, the commute need largely decreases and people are encouraged to stay at home unless it is essential. Hence, the number of trips on a daily basis is expected to decrease. To investigate how people's mobility level really behaves and varies, we present the graph for people's trip numbers at national level from April 2019 to March 2021, which includes data from a year before the COVID-19 outbreak and a year after the pandemic. 
 
 ```{r time series, fig.height = 6, fig.width = 10}
 # r, fig.height = 6, fig.width = 10
@@ -68,7 +64,9 @@ ggplot(national_data, aes(Date, `Number of Trips`/1000000)) +
     theme_bw(16)
 ```
 
-Above time series plot contains how many daily trips are made nationally, weekly averaged number of trips(blue curve), as well as a smoothed daily trip number to better demonstrate the trend within the time series. From the plot, the number of trips in the vertical axis are presented in million unit to have a better scale. The yellow highlighted rectangular part represented the COVID-19 outbreak in the US after March 06, 2020. From the graph, we can clearly find that the number of trips largely decreased after the pandemic and has a huge drop right after president Trump declare the national emergency, which shows the same trend as expected. From the smoothed daily trip(pink) curve, there is upward trend regarding the number of trips people made nationally since December 2020. In December 2020, the United States begins its public vaccinations, which could be one of the reasons of the increasing trend in trip numbers since people are more tend to make trips after getting vaccinated. Also, the establishment of the vaccine station also requires daily commute trips to doctors and health-workers. Up to March 2020, the number of trips nationally, although has increased a lot comparing with the numbers in the late 2020, however, still lower than the common level before the COVID-19 outbreak. 
+Above time series plot contains how many daily trips are made nationally, weekly averaged number of trips(blue curve), as well as a smoothed daily trip number to better demonstrate the trend within the time series(pink curve). From the plot, the number of trips in the vertical axis are presented in million unit to reach a better scale. The yellow highlighted rectangular part represents the COVID-19 outbreak in the U.S. after March 13, 2020. 
+
+From the graph, we can clearly find that the number of trips largely decreased after the pandemic and has a huge drop right after president Trump declare the national emergency, which shows the same trend as expected. From the smoothed daily trip(pink) curve, there is upward trend regarding the number of trips people made nationally since December 2020. In December 2020, the United States begins its public vaccinations, which could be one of the reasons of the increasing trend in trip numbers since people are more tend to make trips after getting vaccinated. Also, the establishment of the vaccine station also requires daily commute trips for doctors and health-workers. Up to March 2020, the number of trips nationally, although has increased a lot comparing with the numbers in the late 2020, however, still lower than the common level before the COVID-19 outbreak. 
 
 ## Histogram: trip length distribution before and after COVID-19
 
@@ -135,7 +133,7 @@ trip_perc_change
 ```
 The `perc_change` column is calculated by using the percentage before the pandemic minus the percentage after the pandemic. Hence the negative value indicates the percentage decreases and a positive value indicate that the percentage increases. The calculation first proved our observation that the percentage of trips longer than 50 miles increases and the percentage of trips between 1-3 miles decreases. Furthermore, the calculation shows that actually the percentage for middle distance trips (i.e. trips from 1-25 miles) decreased, but for short and long distance trips (i.e. below 1 mile or above 25 miles) increased. 
 
-Combining with some real-world experience, one of the reasons for the decreasing in middle distance trips is that the middle trip distances includes daily commutes from home to office and some entertain activities like going to shopping malls or movie theaters. During pandemic, such activities is no longer available due to certain regulations hence the opportunities for people making middle-distance trips decreases. Short distance trips include the situation where people drive to the supermarket to buy groceries and this kind of need increases since people stay at home all day and need to buy fresh groceries more frequently The extreme long distance trips contains the scenarios where people drive to their family members' house, or go back to hometown. This need also increases since more people decided to go back home from big cities. 
+Combining with some real-world experience, one of the reasons for the decreasing in middle distance trips is that the middle trip distances includes daily commutes from home to office and some entertain activities like going to shopping malls or movie theaters. During pandemic, such activities is no longer available due to certain regulations hence the opportunities for people making middle-distance trips decreases. Short distance trips include the situation where people drive to the supermarket to buy groceries and this kind of need increases since people stay at home all day and need to buy fresh groceries more frequently. The extreme long distance trips contains the scenarios where people drive to their family members' house, or go back to hometown. This need also increases since more people decided to go back home from big cities. 
 
 Therefore, the changes in the percentages are reasonable and explainable after second thoughts and is a very interesting finding that we are not expecting from the beginning. 
 
@@ -378,7 +376,7 @@ ggplot(data=national_all, aes(x=Date, y=Confirmed))+
 
 ## Map: Percent of people staying at home during COVID-19 pandemic.
 
-After reviewing trip numbers and COVID-19 confirmed cases at the nation level, our study drills down to the state level by showing state level home quarantine statistics on a map. The map of US states represents the average percentage of people who stayed at home after the outbreak (March 13, 2019) of the pandemic. The monochromatic color scheme was chosen to represent percentage values, with darker color representing higher percentage. This chart provides a clear view of contrast to both adjacent states and states that are farther apart, providing rich information to help compare home quarantine rates, therefore creating a holistic view of our analysis.
+After reviewing trip numbers and COVID-19 confirmed cases at the national level, our study drills down to the state level by showing state level home quarantine statistics on a map. The map of the United States represents the average percentage of people who stayed at home after the outbreak (March 13, 2019) of the pandemic. The monochromatic color scheme was chosen to represent percentage values, with darker color representing higher percentage. This chart provides a clear view of contrast to both adjacent states and states that are farther apart, providing rich information to help compare home quarantine rates, therefore creating a holistic view of our analysis.
 
 To a closer look at the chart, NY, CA and AK are among the states with highest percentage of people staying at home. From our previous analysis, NY and CA are among the top 5 states with the most averaged number of trips after the pandemic. Even though these two results may seems like a conflict at first glance, however, it may because that the number of trips is also correlated with the number of populations in the state. NY and CA have relatively higher population density among the states, thus it is not strange that they have more number of trips even if the quarantine percentages are the top two among all states.  
 
@@ -417,7 +415,7 @@ print(state_perc_map_labeled)
 
 ## Heatmap of people going out in each state
 
-After a glance at how much people observe quarantine in each state, we want to see further how this portion changes as time passes by. We use a heatmap to show average proportion of people travelling out of each state monthly. 50 states are put on the y-axis and 15 months are on the x-axis (2019/12~2021/02). 
+After a glance at how much people quarantine in each state, we want to see further how this portion changes as time passes by. We use a heatmap to show average proportion of people travelling out of each state monthly. 50 states are put on the y-axis and 15 months are on the x-axis (2019/12~2021/02). 
 
 A lot of information could be fetched from this plot! Some states on the top of heatmap almost ignore the quarantine advocacy, such as Mississippi, Alabama and Arkansas, where proportion of people going out merely decreases during pandemic. Some common features of these states are that the number of confirmed cases is not very high and population density is also comparatively low. Number of trips of most states significantly drops during two periods of pandemic (April 2020 and Winter 2020). 
 
@@ -593,7 +591,7 @@ t<- d3tree3(treemap ,  rootname = 'Treemap of number of trips for top five state
 t
 ```
 
-This treemap shows trip information after the pandemic outbreak. Errands under 1 mile and small distance trips between 1 -  3 miles accounted for the majority of trips for the states with most confirmed cases. We can also find out that the total number of trips has contribution to total cases. 
+This treemap shows trip information after the pandemic outbreak.  It is an interactive Treemap so you can click on the specific state and see a detailed Treemap! Errands under 1 mile and small distance trips between 1 -  3 miles accounted for the majority of trips for the states with most confirmed cases. We can also find out that the total number of trips has contribution to total cases. 
 
 ## Alluvial chart showing type of travelling in terms of distance
 
