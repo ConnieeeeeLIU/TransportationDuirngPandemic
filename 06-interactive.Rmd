@@ -32,7 +32,7 @@ Another thing about this chart is that comparison among different categories is 
 
 With D3, we also build a line chart with filter, through which we could choose a transportation method to see its time series over the 10 months. By functioning it as an interactive map, this would reduce a lot of area than in a static one and make us more focused on each plot. From this plot, we can get a more intuitive impression of how airline shrinks and how stable the freight traffic is. 
 
-Please also be aware of the different scale here! The measure of each category is the same as last section. And this part is developed from d3 gallery: https://www.d3-graph-gallery.com/graph/line_filter.html
+Please also be aware of the different scale here! The measure of each category is slightly different from last section: Airline-International and Airline-Domestic are in 0.1 millions; Ridership - Fixed Route Bus and Ridership - Urban Rail are in millions; Freight-Rail Intermodal Units and Freight-Rail Carloads are in 10 thousands. And this part is developed from d3 gallery: https://www.d3-graph-gallery.com/graph/line_filter.html
 
 <select id="selectButton"></select>
 <div id="my_dataviz"></div>

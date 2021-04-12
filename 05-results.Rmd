@@ -109,6 +109,8 @@ mean_national_data <- mean_national_data %>%
   group_by(covid, distance) %>%
   summarize(Freq = sum(Freq)) 
 
+options(scipen = 9)
+
 ggplot(mean_national_data) +
       geom_col(aes(x = reorder(covid, desc(covid)), y = Freq/1000000, fill = distance)) +  
   scale_fill_brewer(type = "qual", palette = "PRGn") +
@@ -184,7 +186,11 @@ options(scipen = 9)
 ggplot(compare_trip_data) +
   geom_point(aes(mean_num_trips_before/1000, reorder(state, mean_num_trips_before), color = 'Average trips before pandamic')) +
   geom_point(aes(mean_num_trips_after/1000, reorder(state, mean_num_trips_before), color = 'Average trips after pandamic')) +
-  ggtitle("Number of trips before and after pandamic", sub = "sorted by before pandemic") + ylab("State") + xlab("Averaged daily trip number(in thousand)")+ theme_dotplot
+  ggtitle("Number of trips before and after pandamic", sub = "sorted by before pandemic") + ylab("State") + xlab("Averaged daily trip number(in thousand)")+ 
+  theme_dotplot+ 
+  theme(axis.text=element_text(size=11), 
+        axis.title=element_text(size=11, face="bold"),
+        plot.title = element_text(size = 14, face = "bold"))
 ```
 
 Some observations can be made based on the above graph. The first and foremost one is that for all states, the averaged number of trips after the pandemic is less than the value before. It means that people's mobility level decreased regardless of the state. The plot also shows that the states with top five trip numbers before pandemic are CA, TX, NY, FL, IL, which are also top five states with most trips after pandemic. 
@@ -445,7 +451,10 @@ ggplot(state_monthly, aes(x=Date, y=reorder(state, notstay_per))) +
   theme(axis.title.x=element_blank())+
   theme(legend.title=element_blank())+
   scale_fill_gradient2(low = "steelblue", mid = "white", high = "red", midpoint = 0.7) +
-  ggtitle(label = "Percent of people travelling in each state over months")
+  ggtitle(label = "Percent of people travelling in each state over months") +
+  theme(axis.text=element_text(size=11), 
+        axis.title=element_text(size=16, face="bold"),
+        plot.title = element_text(size = 16, face = "bold"))
 ```
 
 ## Ridgeline plot of daily new cases
@@ -590,7 +599,7 @@ This treemap shows trip information after the pandemic outbreak. Errands under 1
 
 Here we use two alluvial diagrams to show distributions of trips of different lengths in California, New Yor and Texas, separately before (before 2020/03/13) and after (after 2020/03/13) COVID-19 breaks out. We define trips of length between 0 to 5 miles as short trips; 5 to 50 miles as medium trips and longer than 50 miles as long trips. From these two figures, the rough dividing of short, medium and long remain the same as before pandemic, where most trips are short ones. And we can read that proportion of people travelling out increases in Texas in these three states, as we have already learned before. What's more, we also don't see a decrease in proportion of long-distance trips in these three states. It is an interesting finding that when people taking care of themselves by decreasing numbers of going out nearby, they don't necessarily avoid long-term trips.
 
-```{r alluvial, fig.width = 20, fig.height = 12}
+```{r alluvial, fig.width = 20, fig.height = 13}
 library(ggalluvial)
 library(dplyr)
 state_data <- readr::read_csv("data/clean/State.csv")
@@ -620,6 +629,8 @@ state_agg <- dplyr::filter(state_agg, state %in% c( 'NY', 'CA', 'TX') )
 state_agg <- dplyr::filter(state_agg, covid %in% c('before', 'after'))
 state_agg$covid = factor(state_agg$covid, levels = c("before", "after"))
 
+options(scipen = 9)
+
 ggplot(state_agg, aes(y = Freq/1000000, axis1 = state, axis2 = `Trips in Different Distance`))+
   geom_alluvium(aes(fill = state), width = 1/12) +
   geom_stratum(width = 1/12, fill = "black", color = "grey") +
@@ -628,7 +639,8 @@ ggplot(state_agg, aes(y = Freq/1000000, axis1 = state, axis2 = `Trips in Differe
   scale_fill_brewer(type = "qual", palette = "Set1") +
   facet_wrap(~covid, scales = "free") +
   labs(y="Frequency") + 
-  ggtitle("How far does people travel during pandemic (in millions)")
+  ggtitle("How far does people travel during pandemic (in millions)") + theme_grey(22)
+#+theme(axis.text=element_text(size=14), axis.title=element_text(size=16,face="bold"))
 ```
 
 
