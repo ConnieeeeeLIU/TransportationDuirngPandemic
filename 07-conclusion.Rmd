@@ -1,2 +1,24 @@
 # Conclusion
 
+## Main findings
+
+The main finding is that the COVID-19 pandemic greatly decreased the number of travelings. Since the trips are divided into ten granular level by distance, we find that the percentage of middle-distance trips with 1-25 miles decreased, but the percentage of short trip with less than 1 mile and long distance trips with more than 25 miles increased, which is the result that we did not expected before examining the data. We further drills down to the state level and find the top five states where people like to move around is CA, TX, NY, FL and IL and this rank remains the same before and after the pandemic. 
+
+We also investigated the relationship between the COVID-19 confirmed case and daily number of trips. We find that when there are more confirmed cases, fewer people will travel out, which conforms to our common sense. However, the tendency is subtle, which suggests that people's willingness to traveling is not largely affected by pandemic. 
+
+What's more, the usages of airplane (both international and domestic), bus, and rail all have been drastically decreasing during the pandemic. One interesting finding is that the usages of freight rail, though also decreased during the COVID-19, the amount decrements is not as much as those in human traveling. 
+
+
+## Lessons learned
+
+We find that different data sources contributes to some interesting findings that could not be achieved by a single dataset. We relate COVID-19 data to trip and transportation to see the pandemic from a different perspective, that is to see to what extent the pandemic impacted people's traveling behaviors with various transportation methods and the relationship between different variables. Our analysis helps to see the impact of COVID-19 on a larger social scale, which drew many interesting findings as mentioned above.
+
+Also, we discover that correctly selecting graph types to make visualizations is very important. Each graph has its own features and we need to ones that are most helpful to our goal. Meanwhile, combining different types of graphs also enhances our understanding and analysis to the whole dataset. Thus in our study, we used ten different graphs, and each one of them provides unique insights and inspires us in its own way. 
+
+## Limitations and future directions
+
+Some analysis is not investigated in so much detail because of time limit. To be more specific, in the national-level number of trips plot, there is a surge on the number of trip around March 2020. But we did not fully explore the reason why that was the case with other supporting data or documents. 
+
+In addition, due to the limitation columns in the COVID-19 dataset, we mainly focused on the number of confirmed cases. However, we think it will be interesting to investigate how the vaccine process is impacting people's trip and transportation behaviors. It could be a start point for future analysis. 
+
+

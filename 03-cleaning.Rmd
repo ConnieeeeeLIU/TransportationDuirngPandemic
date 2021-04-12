@@ -1,1 +1,13 @@
 # Data transformation
+
+For the `Trips by Distance` dataset, we read the `.csv` file into `R` with specific datatypes for each columns. Then, select observations since `2019-04-01` since we are interested in analyzing one year of data before and after COVID-19. We also convert the "Date" column to have the standardized date format. 
+
+Since the dataset contains too many observations and is inconvenient to load the data all at once, we decide to split the dataset by `National` and `State` level. Therefore, we create a `National.csv` and `State.csv` containing only the time range that we are interested in. We also create a `.csv` for each state since sometimes we want to dig into the behavior of a specific state, hence we use a `for` loop to iterate through all states and create a `.csv` file for each state and create a `state` folder to organize all the data files. Similarly, we performed the same procedure for each county to create a county folder containing data for each county. 
+
+For the `Transportation` dataset, we select a subset of columns, including `Fixed Route Bus`and `Urban Rail` for transit ridership, `International Airline` and `Domestic Airline` for airplane traveling, `Intermodal Units` and `Carloads` for freight rail. 
+
+Since we use the 2020-03-13 as the outbreak point of COVID-19 and data until December 2020 are available on the website, we use 10 months of data before and after the outbreak to see whether various transportation have been influenced. Therefore, we use data from May 2019 to February 2020 as the pre-covid periods, and data from March 2020 to December 2020 as pandemic periods. 
+
+For each variable of interest, we group data by pre-covid period and pandemic period, then sum up these values to create a new dataframe in order to see if the impact of COVID-19 on different transportation methods. Since many values added up to have very large units, we re-scale the units to be in millions. For example, 10M means 10 million unit, and 100M means 100 million unit.
+
+For the `COVID-19 statistics`, we install `covid19.analytics` package and read in COVID-19 data in the U.S., which are useful for our analysis. 
