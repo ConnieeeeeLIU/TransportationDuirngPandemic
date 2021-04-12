@@ -359,7 +359,7 @@ ggplot(dplyr::filter(national_all, Confirmed<100000 & Confirmed>2500), aes(x = C
        y = "Number of Trips (in millions)",
        x = "Confirmed cases",
        title = "Scatterplot of number of trips VS confirmed cases",
-       caption = "Date range: 2020/01/23~2021/02/01") +
+       caption = "Date range: 2020/01/23~2021/04/11") +
   theme_bw()
 ```
 
@@ -620,14 +620,15 @@ state_agg <- dplyr::filter(state_agg, state %in% c( 'NY', 'CA', 'TX') )
 state_agg <- dplyr::filter(state_agg, covid %in% c('before', 'after'))
 state_agg$covid = factor(state_agg$covid, levels = c("before", "after"))
 
-ggplot(state_agg, aes(y = Freq, axis1 = state, axis2 = `Trips in Different Distance`))+
+ggplot(state_agg, aes(y = Freq/1000000, axis1 = state, axis2 = `Trips in Different Distance`))+
   geom_alluvium(aes(fill = state), width = 1/12) +
   geom_stratum(width = 1/12, fill = "black", color = "grey") +
   geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
   scale_x_discrete(limits = c("State", "Trips in Different Distance"), expand = c(.05, .05)) +
   scale_fill_brewer(type = "qual", palette = "Set1") +
   facet_wrap(~covid, scales = "free") +
-  ggtitle("How far does people travel during pandemic")
+  labs(y="Frequency") + 
+  ggtitle("How far does people travel during pandemic (in millions)")
 ```
 
 
