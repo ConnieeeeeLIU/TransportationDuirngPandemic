@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Results | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 5 Results | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 5 Results | Transportation during Pandemic</title>
+  <meta name="description" content="Chapter 5 Results | Transportation during Pandemic" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Results | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 5 Results | Transportation during Pandemic" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Results | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 5 Results | Transportation during Pandemic" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Shengyuan Cao, Zhengyi Chen and Shiyue Liu" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="missing-values.html"/>
 <link rel="next" href="interactive-component.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,7 +51,10 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.5/d3.min.js"></script>
+<link href="libs/d3tree3-0.1/d3tree3.css" rel="stylesheet" />
+<script src="libs/d3tree3-binding-0.1/d3tree3.js"></script>
 
 
 
@@ -68,16 +71,43 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">Transportation During Pandemic</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#dataset-1-trips-by-distance"><i class="fa fa-check"></i><b>2.1</b> Dataset 1: Trips by distance</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#dataset-2-transportation"><i class="fa fa-check"></i><b>2.2</b> Dataset 2: Transportation</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#dataset-3-covid-19-statistics"><i class="fa fa-check"></i><b>2.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataset1-trips-by-distance"><i class="fa fa-check"></i><b>4.1</b> Dataset1: Trips by distance</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#dataset-2-transportation-data"><i class="fa fa-check"></i><b>4.2</b> Dataset 2: Transportation data</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dataset-3-covid-19-statistics-1"><i class="fa fa-check"></i><b>4.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#time-series-number-of-daily-trips-people-make-nationally."><i class="fa fa-check"></i><b>5.1</b> Time series: Number of daily trips people make nationally.</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#histogram-trip-length-distribution-before-and-after-covid-19"><i class="fa fa-check"></i><b>5.2</b> Histogram: trip length distribution before and after COVID-19</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#multiple-cleveland-dot-plot-number-of-trips-before-and-after-pandemic-in-state-level"><i class="fa fa-check"></i><b>5.3</b> Multiple Cleveland dot plot: number of trips before and after pandemic in state level</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#scatterplot-overview-of-transportation-and-covid-19"><i class="fa fa-check"></i><b>5.4</b> Scatterplot: Overview of Transportation and CovID-19</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#map-percent-of-people-staying-at-home-during-covid-19-pandemic."><i class="fa fa-check"></i><b>5.5</b> Map: Percent of people staying at home during COVID-19 pandemic.</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#heatmap-of-people-going-out-in-each-state"><i class="fa fa-check"></i><b>5.6</b> Heatmap of people going out in each state</a></li>
+<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#ridgeline-plot-of-daily-new-cases"><i class="fa fa-check"></i><b>5.7</b> Ridgeline plot of daily new cases</a></li>
+<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#treemap-for-top-five-covid-19-severe-states"><i class="fa fa-check"></i><b>5.8</b> Treemap for top five COVID-19 severe states</a></li>
+<li class="chapter" data-level="5.9" data-path="results.html"><a href="results.html#alluvial-chart-showing-type-of-travelling-in-terms-of-distance"><i class="fa fa-check"></i><b>5.9</b> Alluvial chart showing type of travelling in terms of distance</a></li>
+<li class="chapter" data-level="5.10" data-path="results.html"><a href="results.html#boxplot-of-trip-numbers-for-each-county-in-texas"><i class="fa fa-check"></i><b>5.10</b> Boxplot of Trip numbers for each county in Texas</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#main-findings"><i class="fa fa-check"></i><b>7.1</b> Main findings</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#lessons-learned"><i class="fa fa-check"></i><b>7.2</b> Lessons learned</a></li>
+<li class="chapter" data-level="7.3" data-path="conclusion.html"><a href="conclusion.html#limitations-and-future-directions"><i class="fa fa-check"></i><b>7.3</b> Limitations and future directions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -89,7 +119,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transportation during Pandemic</a>
           </h1>
         </div>
 
@@ -99,7 +129,81 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
+<p>March 13 — Trump Declares COVID-19 a National Emergency</p>
+<p>President Donald Trump declares the novel coronavirus a national emergency, which unlocks billions of dollars in federal funding to fight the disease’s spread.</p>
+<div id="time-series-number-of-daily-trips-people-make-nationally." class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Time series: Number of daily trips people make nationally.</h2>
+<p>The number of trips that people make on daily basis can be a useful metric to measure people’s mobility level. Among the trips for individual’s daily basis, the commute between home and working place usually takes a huge part of the statistics. Due to the publication of quarantine rules and working from home policy, the commute need largely decreases and people are encouraged to stay at home unless it is essential. Hence, the number of trips on a daily basis is expected to decrease. To investigate how people’s mobility level really behaves and varies, we present the graph for people’s trip numbers from national level from April 2019 to March 2020, which includes data from a year before the Covid-19 outbreak and a year after the pandemic.</p>
+<p><img src="finalproj_files/figure-html/time%20series-1.png" width="960" /></p>
+<p>Above time series plot contains how many daily trips are made nationally, weekly averaged number of trips(blue curve), as well as a smoothed daily trip number to better demonstrate the trend within the time series. From the plot, the number of trips in the vertical axis are presented in million unit to have a better scale. The yellow highlighted rectangular part represented the COVID-19 outbreak in the US after March 06, 2020. From the graph, we can clearly find that the number of trips largely decreased after the pandemic and has a huge drop right after president Trump declare the national emergency, which shows the same trend as expected. From the smoothed daily trip(pink) curve, there is upward trend regarding the number of trips people made nationally since December 2020. In December 2020, the United States begins its public vaccinations, which could be one of the reasons of the increasing trend in trip numbers since people are more tend to make trips after getting vaccinated. Also, the establishment of the vaccine station also requires daily commute trips to doctors and health-workers. Up to March 2020, the number of trips nationally, although has increased a lot comparing with the numbers in the late 2020, however, still lower than the common level before the COVID-19 outbreak.</p>
+</div>
+<div id="histogram-trip-length-distribution-before-and-after-covid-19" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Histogram: trip length distribution before and after COVID-19</h2>
+<p>After having an overall impression on how the total trips number changes, we want to have a close look at how trip numbers with different distance length changes due to COVID-19. Hence, we present following stack histogram in which the height of each stack shows the numbers of trips for different distance category. The distance category is the original data set are: trips below 1 mile, between 1-3 miles, 3-5 miles, 5-10 miles, 10-25 miles, 25-50 miles, 50-100 miles, 100-250 miles, 250-500 miles and above 500 miles. Since the trips with distance longer than 50 miles takes a relatively small percentage comparing with other distance categories, to make it more clear on the histogram and avoid having too much catrgories that can not provide much information, we deicide to combine the number of trips that are above 50 miles to one category called <code>Number of Trips &gt;= 50</code> and then create the histogram based on the new categories. The total height of the bars represent the total number of trips and the vertical axis is scaled to millions in unit. In the plot, each distance category has a unique color to better show the percentage distribution within the total number of trips before and after the pandemic. The time range for splitting the pandemic is 2020-03-13.</p>
+<p><img src="finalproj_files/figure-html/hist-1.png" width="672" /></p>
+<p>The height of the bars decreased from before to after, which shows that the total number of trips decreased after the pandemic. As for the distributions for each distance categories, since the number of trips of each categories decreases and the whole trip number decreases as well, it is not very obvious to see how the percentage of each categories changes. However, we can still find that for the trips above 50 miles, the percentage seems to increase and for trips between 1-3 miles, the percentage decreases. Before examining the data, we are intuitively expecting that long-trip distance is decreased since people can not travel between cities. To have a more rigorous conclusion on how the percentage of each distance categories changes, we provide numerical calculations below.</p>
+<pre><code>## # A tibble: 7 x 2
+##   distance              perc_change
+##   &lt;fct&gt;                       &lt;dbl&gt;
+## 1 Number of Trips &lt;1        0.0141 
+## 2 Number of Trips 1-3      -0.00435
+## 3 Number of Trips 3-5      -0.00330
+## 4 Number of Trips 5-10     -0.00739
+## 5 Number of Trips 10-25    -0.0106 
+## 6 Number of Trips 25-50     0.00273
+## 7 Number of Trips &gt;= 50     0.00882</code></pre>
+<p>The <code>perc_change</code> column is calculated by using the percentage before the pandemic minus the percentage after the pandemic. Hence the negative value indicates the percentage decreases and a positive value indicate that the percentage increases. The calculation first proved our observation that the percentage of trips longer than 50 miles increases and the percentage of trips between 1-3 miles decreases. Furthermore, the calculation shows that actually the percentage for middle distance trips (i.e. trips from 1-25 miles) decreased, but for short and long distance trips (i.e. below 1 mile or above 25 miles) increased.</p>
+<p>Combining with some real-world experience, one of the reasons for the decreasing in middle distance trips is that the middle trip distances includes daily commutes from home to office and some entertain activities like going to shopping malls or movie theaters. During pandemic, such activities is no longer available due to certain regulations hence the opportunities for people making middle-distance trips decreases. Short distance trips include the situation where people drive to the supermarket to buy groceries and this kind of need increases since people stay at home all day and need to buy fresh groceries more frequently The extreme long distance trips contains the scenarios where people drive to their family members’ house, or go back to hometown. This need also increases since more people decided to go back home from big cities.</p>
+<p>Therefore, the changes in the percentages are reasonable and explainable after second thoughts and is a very interesting finding that we are not expecting from the beginning.</p>
+</div>
+<div id="multiple-cleveland-dot-plot-number-of-trips-before-and-after-pandemic-in-state-level" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Multiple Cleveland dot plot: number of trips before and after pandemic in state level</h2>
+<p>After having an idea about how the number of trips changes in the national level, we would like to go into the state level to see how the averaged number of trips change before and after the pandemic for each state. We select the averaged trip number from 2019-04-01 to 2020-03-13 as the averaged trip number before pandemic and take the averaged number from 2020-03-13 to 2021-03-20 as the one after the pandemic. As a result, we present the multiple Cleveland dot plot, where the averaged daily number of trips change before and after the pandemic for each state is displayed and the order of the state is sorted according to the number of averaged trip numbers before the pandemic.</p>
+<p><img src="finalproj_files/figure-html/c%202-1.png" width="864" /></p>
+<p>Some observations can be made based on the above graph. The first and foremost one is that for all states, the averaged number of trips after the pandemic is less than the value before. It means that people’s mobility level decreased regardless of the state. The plot also shows that the states with top five trip numbers before pandemic are CA, TX, NY, FL, IL, which are also top five states with most trips after pandemic.</p>
+</div>
+<div id="scatterplot-overview-of-transportation-and-covid-19" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Scatterplot: Overview of Transportation and CovID-19</h2>
+<p>In order to take a close look at relationship between transportation and pandemic, we draw a scatterplot of daily number of trips and confirmed cases in a national wide range (2020-01-23 ~ 2021-02-01). By first drawing a boxplot of confirmed cases (omitted here), we only keep the interquantile range. We could read information that when there are more confirmed cases, fewer people will travel out, which conforms to our common sense. However, the tendency is not that obvious. From the scatterplot, it seems that people’s willingness to travelling is not largely affected by epidemic situation.</p>
+<p><img src="finalproj_files/figure-html/scatterplot-1.png" width="672" /></p>
+</div>
+<div id="map-percent-of-people-staying-at-home-during-covid-19-pandemic." class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Map: Percent of people staying at home during COVID-19 pandemic.</h2>
+<p>After reviewing trip numbers and COVID-19 confirmed cases at the nation level, our study drills down to the state level by showing state level home quarantine statistics on a map. The map of US states represents the average percentage of people who stayed at home after the outbreak (March 13, 2019) of the pandemic. The monochromatic color scheme was chosen to represent percentage values, with darker color representing higher percentage. This chart provides a clear view of contrast to both adjacent states and states that are farther apart, providing rich information to help compare home quarantine rates, therefore creating a holistic view of our analysis.</p>
+<p>To a closer look at the chart, NY, CA and AK are among the states with highest percentage of people staying at home. From our previous analysis, NY and CA are among the top 5 states with the most averaged number of trips after the pandemic. Even though these two results may seems like a conflict at first glance, however, it may because that the number of trips is also correlated with the number of populations in the state. NY and CA have relatively higher population density among the states, thus it is not strange that they have more number of trips even if the quarantine percentages are the top two among all states.</p>
+<p><img src="finalproj_files/figure-html/map-1.png" width="960" /></p>
+</div>
+<div id="heatmap-of-people-going-out-in-each-state" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Heatmap of people going out in each state</h2>
+<p>After a glance at how much people observe quarantine in each state, we want to see further how this portion changes as time passes by. We use a heatmap to show average proportion of people travelling out of each state monthly. 50 states are put on the y-axis and 15 months are on the x-axis (2019/12~2021/02).</p>
+<p>A lot of information could be fetched from this plot! Some states on the top of heatmap almost ignore the quarantine advocacy, such as Mississippi, Alabama and Arkansas, where proportion of people going out merely decreases during pandemic. Some common features of these states are that the number of confirmed cases is not very high and population density is also comparatively low. Number of trips of most states significantly drops during two periods of pandemic (April 2020 and Winter 2020).</p>
+<p>It is also interesting that the lower right part of the heatmap is quite light, implying that people in these states are customed to staying at home (like Work From Home) even when epidemic situation is ameliorated. What’s more, the three states with most confirmed cases are California, Texas and New York sequently. However, their anti-epidemic measures seems quite different since California and New York are among the states with least proportion of people travelling while percent of travelers is still high in Texas.</p>
+<p><img src="finalproj_files/figure-html/Heatmap-1.png" width="1152" /></p>
+</div>
+<div id="ridgeline-plot-of-daily-new-cases" class="section level2" number="5.7">
+<h2><span class="header-section-number">5.7</span> Ridgeline plot of daily new cases</h2>
+<p>For reference, we put the weekly averaged new confirmed cases of five states with most cases in a ridgeline plot. We can see that first peek of cases in New Yrok is much earlier than other states. Compared with California and New York, the ridge of Taxes is more continuous in the sense that it has never reached a valley (minimum) in the last 10 months.
+　
+<img src="finalproj_files/figure-html/ridgeline%20plot%20of%20covid%20confirmed%20cases-1.png" width="672" /></p>
+</div>
+<div id="treemap-for-top-five-covid-19-severe-states" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> Treemap for top five COVID-19 severe states</h2>
+<p>This interactive treemap provides another view of transportation patterns for the 5 states with most confirmed COVID-19 cases. Each state was represented by a large rectangle, with a unique color. Within each state, the number of trips was further broken out by small rectangles, providing a more granular view of transportation distance statistics. Thus, this treemap shows muti-layer of comparison in an efficient way by comparing trip information across states and by area of each rectangle indicating proportional volume of each dimension. Together with other charts, the treemap provides a nice summary of trip volumes under the pandemic. The top five states with most severe COVID-19 situation are California, Texas, New York, Florida and Illinois.</p>
+<div id="htmlwidget-c09d815ffb94d0e95191" style="width:672px;height:480px;" class="d3tree3 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c09d815ffb94d0e95191">{"x":{"data":{"name":"Treemap of number of trips for top five states with most COVID-19 cases","id":1,"size":null,"children":[{"name":"CA","color":"#FBB4AE","h":0.527711343624295,"id":2,"size":33410972381,"stdErr":33410972381,"vColor":7,"vSize":33410972381,"w":0.503121219106863,"x0":0,"y0":0.472288656375705,"children":[{"name":"Number of Trips <1","color":"#E28F96","h":0.268260990200341,"id":3,"size":8620588574,"stdErr":8620588574,"vColor":1,"vSize":8620588574,"w":0.255363806651428,"x0":0,"y0":0.731739009799659},{"name":"Number of Trips >= 50","color":"#E28F92","h":0.0846784521437354,"id":4,"size":1193810145,"stdErr":1193810145,"vColor":1,"vSize":1193810145,"w":0.112032055145371,"x0":0.391089163961492,"y0":0.472288656375705},{"name":"Number of Trips 1-3","color":"#E2918F","h":0.259450353423954,"id":5,"size":8337458050,"stdErr":8337458050,"vColor":1,"vSize":8337458050,"w":0.255363806651428,"x0":0,"y0":0.472288656375705},{"name":"Number of Trips 10-25","color":"#E2958F","h":0.303559391999147,"id":6,"size":4770933280,"stdErr":4770933280,"vColor":1,"vSize":4770933280,"w":0.124893437002866,"x0":0.255363806651428,"y0":0.696440608000853},{"name":"Number of Trips 25-50","color":"#E29A8F","h":0.139473499481412,"id":7,"size":1966319346,"stdErr":1966319346,"vColor":1,"vSize":1966319346,"w":0.112032055145371,"x0":0.391089163961492,"y0":0.556967108519441},{"name":"Number of Trips 3-5","color":"#E29E8F","h":0.224151951625148,"id":8,"size":3828455202,"stdErr":3828455202,"vColor":1,"vSize":3828455202,"w":0.135725357310064,"x0":0.255363806651428,"y0":0.472288656375705},{"name":"Number of Trips 5-10","color":"#E2A38F","h":0.303559391999147,"id":9,"size":4693407784,"stdErr":4693407784,"vColor":1,"vSize":4693407784,"w":0.122863975452569,"x0":0.380257243654294,"y0":0.696440608000853}]},{"name":"FL","color":"#B3CDE3","h":0.753922552441558,"id":10,"size":22690117759,"stdErr":22690117759,"vColor":7,"vSize":22690117759,"w":0.239160781326925,"x0":0.760839218673075,"y0":0.246077447558442,"children":[{"name":"Number of Trips <1","color":"#98BDCC","h":0.383736788373647,"id":11,"size":5809700608,"stdErr":5809700608,"vColor":1,"vSize":5809700608,"w":0.120309594896513,"x0":0.760839218673075,"y0":0.616263211626353},{"name":"Number of Trips >= 50","color":"#98BACC","h":0.125768227336827,"id":12,"size":535047025,"stdErr":535047025,"vColor":1,"vSize":535047025,"w":0.0338065585360379,"x0":0.966193441463962,"y0":0.246077447558442},{"name":"Number of Trips 1-3","color":"#98B7CC","h":0.383736788373647,"id":13,"size":5739274666,"stdErr":5739274666,"vColor":1,"vSize":5739274666,"w":0.118851186430411,"x0":0.881148813569589,"y0":0.616263211626353},{"name":"Number of Trips 10-25","color":"#98B5CC","h":0.173502922400028,"id":14,"size":3151055445,"stdErr":3151055445,"vColor":1,"vSize":3151055445,"w":0.144320890266714,"x0":0.760839218673075,"y0":0.246077447558442},{"name":"Number of Trips 25-50","color":"#98B2CC","h":0.125768227336827,"id":15,"size":965957625,"stdErr":965957625,"vColor":1,"vSize":965957625,"w":0.0610333325241732,"x0":0.905160108939789,"y0":0.246077447558442},{"name":"Number of Trips 3-5","color":"#98AFCC","h":0.244417536731083,"id":16,"size":2917047230,"stdErr":2917047230,"vColor":1,"vSize":2917047230,"w":0.0948398910602111,"x0":0.905160108939789,"y0":0.371845674895269},{"name":"Number of Trips 5-10","color":"#98ACCC","h":0.196682841667882,"id":17,"size":3572035160,"stdErr":3572035160,"vColor":1,"vSize":3572035160,"w":0.144320890266714,"x0":0.760839218673075,"y0":0.419580369958471}]},{"name":"IL","color":"#CCEBC5","h":0.246077447558442,"id":18,"size":15386587666,"stdErr":15386587666,"vColor":7,"vSize":15386587666,"w":0.496878780893137,"x0":0.503121219106863,"y0":0,"children":[{"name":"Number of Trips <1","color":"#B9D3AA","h":0.246077447558442,"id":19,"size":4092742320,"stdErr":4092742320,"vColor":1,"vSize":4092742320,"w":0.132166849376553,"x0":0.503121219106863,"y0":0},{"name":"Number of Trips >= 50","color":"#B7D3AA","h":0.0993329415387991,"id":20,"size":408117421,"stdErr":408117421,"vColor":1,"vSize":408117421,"w":0.0326491429714708,"x0":0.967350857028529,"y0":0},{"name":"Number of Trips 1-3","color":"#B4D3AA","h":0.246077447558442,"id":21,"size":3800874094,"stdErr":3800874094,"vColor":1,"vSize":3800874094,"w":0.122741554342698,"x0":0.635288068483416,"y0":0},{"name":"Number of Trips 10-25","color":"#B2D3AA","h":0.246077447558442,"id":22,"size":2236067571,"stdErr":2236067571,"vColor":1,"vSize":2236067571,"w":0.0722092872566069,"x0":0.758029622826114,"y0":0},{"name":"Number of Trips 25-50","color":"#B0D3AA","h":0.0993329415387991,"id":23,"size":812069321,"stdErr":812069321,"vColor":1,"vSize":812069321,"w":0.0649650468218415,"x0":0.902385810206688,"y0":0},{"name":"Number of Trips 3-5","color":"#ADD3AA","h":0.146744506019643,"id":24,"size":1802581278,"stdErr":1802581278,"vColor":1,"vSize":1802581278,"w":0.0976141897933123,"x0":0.902385810206688,"y0":0.0993329415387991},{"name":"Number of Trips 5-10","color":"#ABD3AA","h":0.246077447558442,"id":25,"size":2234135661,"stdErr":2234135661,"vColor":1,"vSize":2234135661,"w":0.0721469001239669,"x0":0.830238910082721,"y0":0}]},{"name":"NY","color":"#DECBE4","h":0.753922552441558,"id":26,"size":24450713559,"stdErr":24450713559,"vColor":7,"vSize":24450713559,"w":0.257717999566213,"x0":0.503121219106863,"y0":0.246077447558442,"children":[{"name":"Number of Trips <1","color":"#C2B2CD","h":0.40735491351757,"id":27,"size":7074033234,"stdErr":7074033234,"vColor":1,"vSize":7074033234,"w":0.137998410835776,"x0":0.503121219106863,"y0":0.59264508648243},{"name":"Number of Trips >= 50","color":"#C4B2CD","h":0.113577754840374,"id":28,"size":505504373,"stdErr":505504373,"vColor":1,"vSize":505504373,"w":0.0353680882834332,"x0":0.725471130389642,"y0":0.246077447558442},{"name":"Number of Trips 1-3","color":"#C5B2CD","h":0.40735491351757,"id":29,"size":6137029726,"stdErr":6137029726,"vColor":1,"vSize":6137029726,"w":0.119719588730436,"x0":0.641119629942639,"y0":0.59264508648243},{"name":"Number of Trips 10-25","color":"#C7B2CD","h":0.164201876922301,"id":30,"size":3275226217,"stdErr":3275226217,"vColor":1,"vSize":3275226217,"w":0.158505060833426,"x0":0.503121219106863,"y0":0.246077447558442},{"name":"Number of Trips 25-50","color":"#C8B2CD","h":0.113577754840374,"id":31,"size":912513304,"stdErr":912513304,"vColor":1,"vSize":912513304,"w":0.0638448504493536,"x0":0.661626279940288,"y0":0.246077447558442},{"name":"Number of Trips 3-5","color":"#CAB2CD","h":0.232989884083614,"id":32,"size":2908877488,"stdErr":2908877488,"vColor":1,"vSize":2908877488,"w":0.0992129387327868,"x0":0.661626279940288,"y0":0.359655202398816},{"name":"Number of Trips 5-10","color":"#CBB2CD","h":0.182365762001687,"id":33,"size":3637529217,"stdErr":3637529217,"vColor":1,"vSize":3637529217,"w":0.158505060833426,"x0":0.503121219106863,"y0":0.410279324480743}]},{"name":"TX","color":"#FED9A6","h":0.472288656375705,"id":34,"size":29901997455,"stdErr":29901997455,"vColor":7,"vSize":29901997455,"w":0.503121219106863,"x0":0,"y0":0,"children":[{"name":"Number of Trips <1","color":"#E5AD86","h":0.293202933808039,"id":35,"size":7360479772,"stdErr":7360479772,"vColor":1,"vSize":7360479772,"w":0.199488452075802,"x0":0.125019721283367,"y0":0.179085722567667},{"name":"Number of Trips >= 50","color":"#E5B286","h":0.102606258383877,"id":36,"size":970213892,"stdErr":970213892,"vColor":1,"vSize":970213892,"w":0.0751404144681512,"x0":0.427980804638711,"y0":0},{"name":"Number of Trips 1-3","color":"#E5B786","h":0.472288656375705,"id":37,"size":7430295614,"stdErr":7430295614,"vColor":1,"vSize":7430295614,"w":0.125019721283367,"x0":0,"y0":0},{"name":"Number of Trips 10-25","color":"#E5BD86","h":0.179085722567667,"id":38,"size":4495715037,"stdErr":4495715037,"vColor":1,"vSize":4495715037,"w":0.199488452075802,"x0":0.125019721283367,"y0":0},{"name":"Number of Trips 25-50","color":"#E5C286","h":0.171509568744789,"id":39,"size":1621742853,"stdErr":1621742853,"vColor":1,"vSize":1621742853,"w":0.0751404144681512,"x0":0.427980804638711,"y0":0.102606258383877},{"name":"Number of Trips 3-5","color":"#E5C786","h":0.274115827128666,"id":40,"size":3569272095,"stdErr":3569272095,"vColor":1,"vSize":3569272095,"w":0.103472631279542,"x0":0.32450817335917,"y0":0},{"name":"Number of Trips 5-10","color":"#E5CC86","h":0.19817282924704,"id":41,"size":4454278192,"stdErr":4454278192,"vColor":1,"vSize":4454278192,"w":0.178613045747693,"x0":0.32450817335917,"y0":0.274115827128666}]}]},"meta":{"type":"index","vSize":"Freq","vColor":null,"stdErr":"Freq","algorithm":"pivotSize","vpCoorX":[0.0218722659667541,0.978127734033246],"vpCoorY":[0.0196850393700787,0.910314960629921],"aspRatio":1.93263195119795,"range":null,"mapping":[null,null,null],"draw":true},"legend":null,"options":{"celltext":"name","id":"id","valueField":"size","clickAction":null}},"evals":[],"jsHooks":[]}</script>
+<p>This treemap shows trip information after the pandemic outbreak. Errands under 1 mile and small distance trips between 1 - 3 miles accounted for the majority of trips for the states with most confirmed cases. We can also find out that the total number of trips has contribution to total cases.</p>
+</div>
+<div id="alluvial-chart-showing-type-of-travelling-in-terms-of-distance" class="section level2" number="5.9">
+<h2><span class="header-section-number">5.9</span> Alluvial chart showing type of travelling in terms of distance</h2>
+<p>Here we use two alluvial diagrams to show distributions of trips of different lengths in California, New Yor and Texas, separately before (before 2020/03/13) and after (after 2020/03/13) COVID-19 breaks out. We define trips of length between 0 to 5 miles as short trips; 5 to 50 miles as medium trips and longer than 50 miles as long trips. From these two figures, the rough dividing of short, medium and long remain the same as before pandemic, where most trips are short ones. And we can read that proportion of people travelling out increases in Texas in these three states, as we have already learned before. What’s more, we also don’t see a decrease in proportion of long-distance trips in these three states. It is an interesting finding that when people taking care of themselves by decreasing numbers of going out nearby, they don’t necessarily avoid long-term trips.</p>
+<p><img src="finalproj_files/figure-html/alluvial-1.png" width="1920" /></p>
+</div>
+<div id="boxplot-of-trip-numbers-for-each-county-in-texas" class="section level2" number="5.10">
+<h2><span class="header-section-number">5.10</span> Boxplot of Trip numbers for each county in Texas</h2>
+<p>As we have detected Texas as an unusual state ftom analysis above, we decide to explore more about it! We draw a boxplot of number of short trips in 10 counties with most frequent activities. As we can see, number of short-term travellers is far ahead in Harris County, where the medium is about 6.5 millions. Harris County is the most populous county in Texas and the third most populous county in the US, where Houston lies in. Harris is also the fifth top county of confirmed cases (news statistics from Johns Hopkins University).</p>
+<p><img src="finalproj_files/figure-html/boxplot-1.png" width="672" /></p>
 
+</div>
 </div>
             </section>
 
@@ -138,7 +242,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/05-results.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/edit/main/05-results.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +250,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/05-results.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/blob/main/05-results.Rmd",
 "text": null
 },
 "download": null,

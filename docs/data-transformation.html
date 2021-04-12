@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Data transformation | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 3 Data transformation | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 3 Data transformation | Transportation during Pandemic</title>
+  <meta name="description" content="Chapter 3 Data transformation | Transportation during Pandemic" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Data transformation | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 3 Data transformation | Transportation during Pandemic" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Data transformation | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 3 Data transformation | Transportation during Pandemic" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Shengyuan Cao, Zhengyi Chen and Shiyue Liu" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="data-sources.html"/>
 <link rel="next" href="missing-values.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,7 +51,10 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.5/d3.min.js"></script>
+<link href="libs/d3tree3-0.1/d3tree3.css" rel="stylesheet" />
+<script src="libs/d3tree3-binding-0.1/d3tree3.js"></script>
 
 
 
@@ -68,16 +71,43 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">Transportation During Pandemic</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#dataset-1-trips-by-distance"><i class="fa fa-check"></i><b>2.1</b> Dataset 1: Trips by distance</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#dataset-2-transportation"><i class="fa fa-check"></i><b>2.2</b> Dataset 2: Transportation</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#dataset-3-covid-19-statistics"><i class="fa fa-check"></i><b>2.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataset1-trips-by-distance"><i class="fa fa-check"></i><b>4.1</b> Dataset1: Trips by distance</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#dataset-2-transportation-data"><i class="fa fa-check"></i><b>4.2</b> Dataset 2: Transportation data</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dataset-3-covid-19-statistics-1"><i class="fa fa-check"></i><b>4.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#time-series-number-of-daily-trips-people-make-nationally."><i class="fa fa-check"></i><b>5.1</b> Time series: Number of daily trips people make nationally.</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#histogram-trip-length-distribution-before-and-after-covid-19"><i class="fa fa-check"></i><b>5.2</b> Histogram: trip length distribution before and after COVID-19</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#multiple-cleveland-dot-plot-number-of-trips-before-and-after-pandemic-in-state-level"><i class="fa fa-check"></i><b>5.3</b> Multiple Cleveland dot plot: number of trips before and after pandemic in state level</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#scatterplot-overview-of-transportation-and-covid-19"><i class="fa fa-check"></i><b>5.4</b> Scatterplot: Overview of Transportation and CovID-19</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#map-percent-of-people-staying-at-home-during-covid-19-pandemic."><i class="fa fa-check"></i><b>5.5</b> Map: Percent of people staying at home during COVID-19 pandemic.</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#heatmap-of-people-going-out-in-each-state"><i class="fa fa-check"></i><b>5.6</b> Heatmap of people going out in each state</a></li>
+<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#ridgeline-plot-of-daily-new-cases"><i class="fa fa-check"></i><b>5.7</b> Ridgeline plot of daily new cases</a></li>
+<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#treemap-for-top-five-covid-19-severe-states"><i class="fa fa-check"></i><b>5.8</b> Treemap for top five COVID-19 severe states</a></li>
+<li class="chapter" data-level="5.9" data-path="results.html"><a href="results.html#alluvial-chart-showing-type-of-travelling-in-terms-of-distance"><i class="fa fa-check"></i><b>5.9</b> Alluvial chart showing type of travelling in terms of distance</a></li>
+<li class="chapter" data-level="5.10" data-path="results.html"><a href="results.html#boxplot-of-trip-numbers-for-each-county-in-texas"><i class="fa fa-check"></i><b>5.10</b> Boxplot of Trip numbers for each county in Texas</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#main-findings"><i class="fa fa-check"></i><b>7.1</b> Main findings</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#lessons-learned"><i class="fa fa-check"></i><b>7.2</b> Lessons learned</a></li>
+<li class="chapter" data-level="7.3" data-path="conclusion.html"><a href="conclusion.html#limitations-and-future-directions"><i class="fa fa-check"></i><b>7.3</b> Limitations and future directions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -89,7 +119,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transportation during Pandemic</a>
           </h1>
         </div>
 
@@ -99,6 +129,12 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p>For the <code>Trips by Distance</code> dataset, we read the <code>.csv</code> file into <code>R</code> with specific datatypes for each columns. Then, select observations since <code>2019-04-01</code> since we are interested in analyzing one year of data before and after COVID-19. We also convert the “Date” column to have the standardized date format.</p>
+<p>Since the dataset contains too many observations and is inconvenient to load the data all at once, we decide to split the dataset by <code>National</code> and <code>State</code> level. Therefore, we create a <code>National.csv</code> and <code>State.csv</code> containing only the time range that we are interested in. We also create a <code>.csv</code> for each state since sometimes we want to dig into the behavior of a specific state, hence we use a <code>for</code> loop to iterate through all states and create a <code>.csv</code> file for each state and create a <code>state</code> folder to organize all the data files. Similarly, we performed the same procedure for each county to create a county folder containing data for each county.</p>
+<p>For the <code>Transportation</code> dataset, we select a subset of columns, including <code>Fixed Route Bus</code>and <code>Urban Rail</code> for transit ridership, <code>International Airline</code> and <code>Domestic Airline</code> for airplane traveling, <code>Intermodal Units</code> and <code>Carloads</code> for freight rail.</p>
+<p>Since we use the 2020-03-13 as the outbreak point of COVID-19 and data until December 2020 are available on the website, we use 10 months of data before and after the outbreak to see whether various transportation have been influenced. Therefore, we use data from May 2019 to February 2020 as the pre-covid periods, and data from March 2020 to December 2020 as pandemic periods.</p>
+<p>For each variable of interest, we group data by pre-covid period and pandemic period, then sum up these values to create a new dataframe in order to see if the impact of COVID-19 on different transportation methods. Since many values added up to have very large units, we re-scale the units to be in millions. For example, 10M means 10 million unit, and 100M means 100 million unit.</p>
+<p>For the <code>COVID-19 statistics</code>, we install <code>covid19.analytics</code> package and read in COVID-19 data in the U.S., which are useful for our analysis.</p>
 
 </div>
             </section>
@@ -138,7 +174,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/03-cleaning.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/edit/main/03-cleaning.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +182,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/03-cleaning.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/blob/main/03-cleaning.Rmd",
 "text": null
 },
 "download": null,

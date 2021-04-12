@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 2 Data sources | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 2 Data sources | Transportation during Pandemic</title>
+  <meta name="description" content="Chapter 2 Data sources | Transportation during Pandemic" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 2 Data sources | Transportation during Pandemic" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | Transportation during Pandemic" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Shengyuan Cao, Zhengyi Chen and Shiyue Liu" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,7 +51,10 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.5/d3.min.js"></script>
+<link href="libs/d3tree3-0.1/d3tree3.css" rel="stylesheet" />
+<script src="libs/d3tree3-binding-0.1/d3tree3.js"></script>
 
 
 
@@ -68,16 +71,43 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">Transportation During Pandemic</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#dataset-1-trips-by-distance"><i class="fa fa-check"></i><b>2.1</b> Dataset 1: Trips by distance</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#dataset-2-transportation"><i class="fa fa-check"></i><b>2.2</b> Dataset 2: Transportation</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#dataset-3-covid-19-statistics"><i class="fa fa-check"></i><b>2.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataset1-trips-by-distance"><i class="fa fa-check"></i><b>4.1</b> Dataset1: Trips by distance</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#dataset-2-transportation-data"><i class="fa fa-check"></i><b>4.2</b> Dataset 2: Transportation data</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dataset-3-covid-19-statistics-1"><i class="fa fa-check"></i><b>4.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#time-series-number-of-daily-trips-people-make-nationally."><i class="fa fa-check"></i><b>5.1</b> Time series: Number of daily trips people make nationally.</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#histogram-trip-length-distribution-before-and-after-covid-19"><i class="fa fa-check"></i><b>5.2</b> Histogram: trip length distribution before and after COVID-19</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#multiple-cleveland-dot-plot-number-of-trips-before-and-after-pandemic-in-state-level"><i class="fa fa-check"></i><b>5.3</b> Multiple Cleveland dot plot: number of trips before and after pandemic in state level</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#scatterplot-overview-of-transportation-and-covid-19"><i class="fa fa-check"></i><b>5.4</b> Scatterplot: Overview of Transportation and CovID-19</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#map-percent-of-people-staying-at-home-during-covid-19-pandemic."><i class="fa fa-check"></i><b>5.5</b> Map: Percent of people staying at home during COVID-19 pandemic.</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#heatmap-of-people-going-out-in-each-state"><i class="fa fa-check"></i><b>5.6</b> Heatmap of people going out in each state</a></li>
+<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#ridgeline-plot-of-daily-new-cases"><i class="fa fa-check"></i><b>5.7</b> Ridgeline plot of daily new cases</a></li>
+<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#treemap-for-top-five-covid-19-severe-states"><i class="fa fa-check"></i><b>5.8</b> Treemap for top five COVID-19 severe states</a></li>
+<li class="chapter" data-level="5.9" data-path="results.html"><a href="results.html#alluvial-chart-showing-type-of-travelling-in-terms-of-distance"><i class="fa fa-check"></i><b>5.9</b> Alluvial chart showing type of travelling in terms of distance</a></li>
+<li class="chapter" data-level="5.10" data-path="results.html"><a href="results.html#boxplot-of-trip-numbers-for-each-county-in-texas"><i class="fa fa-check"></i><b>5.10</b> Boxplot of Trip numbers for each county in Texas</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#main-findings"><i class="fa fa-check"></i><b>7.1</b> Main findings</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#lessons-learned"><i class="fa fa-check"></i><b>7.2</b> Lessons learned</a></li>
+<li class="chapter" data-level="7.3" data-path="conclusion.html"><a href="conclusion.html#limitations-and-future-directions"><i class="fa fa-check"></i><b>7.3</b> Limitations and future directions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -89,7 +119,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transportation during Pandemic</a>
           </h1>
         </div>
 
@@ -99,7 +129,36 @@
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<p>Our project uses three datasets: Trips by Distance, Transportation, and COVID-19 statistics.</p>
+<p>The first two datasets are published by U.S. Department of Tranportation, Bureau of Transportation Statistics. The third one is from the <a href="https://cran.r-project.org/web/packages/covid19.analytics/vignettes/covid19.analytics.html"><code>covid19.analytics</code> Package</a>. For each dataset, we present a graphs using <code>visdat</code> package(<a href="https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html">visdat</a>) to visualize the columns and datatypes within the dataset.</p>
+<div id="dataset-1-trips-by-distance" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Dataset 1: Trips by distance</h2>
+<p>The <em>Trips by distance</em> dataset is from <a href="https://data.bts.gov/Research-and-Statistics/Trips-by-Distance/w96p-f2qv/data">Link</a>. The travel statistics are produced from an anonymized national panel of mobile device data from multiple sources. All data sources used in the creation of the metrics contain no personal information.</p>
+<p>The dataset has 2,609,498 observations and 20 columns. It provides insights about the number of people staying at home, not staying at home, and how many trips are made with different miles at national, state and county level on a daily basis. Trips are defined as movements that include a stay of longer than 10 minutes at an anonymized location away from home.</p>
+<p>Below is the visualization of this dataset. The horizontal axis displays the columns in the data set and the vertical axis represents each observations. Different colors represent the datatype for the column.</p>
+<p><img src="finalproj_files/figure-html/nationaldata-1.png" width="672" /></p>
+<p>The trip distances are divided into ten granular levels, for example, less than 1 mile, from 1 to 3 miles, and so on, until the distance above 500 miles. As we can see from above graph, columns contains the number of trips at the corresponding granular distance level, for example, <code>Number of Trips &lt;1</code> shows number of trips made by residents shorter than one mile. These columns have integer datatype. <code>Level</code> column shows if the observation is on national, state or county level. Column <code>Date</code> is a datetime type recording the exact date of the records.</p>
+<p>The open datasets are available for downloading as a <code>.csv</code> file directly from the website. Then we directly read these csv files as dataframes in <code>RStudio</code>.</p>
+</div>
+<div id="dataset-2-transportation" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Dataset 2: Transportation</h2>
+<p>The <em>Monthly Transportation Statistics</em> dataset is from <a href="https://data.bts.gov/Research-and-Statistics/Monthly-Transportation-Statistics/crem-w557/data">Link</a>. The Bureau of Transportation Statistics brings together the latest data from across the Federal government and transportation industry. Monthly Transportation Statistics contains over 50 time series from nearly two dozen data sources.</p>
+<p>Data provides insights about population using different traffic methods at monthly scale. For example, how many people take airplanes in each month. The dataset contains data both before and after the COVID-19 pandemic. Since we want to explore how transportation methods usage are affected by COVID-19, we choose 10 months of data before and after the outbreak of COVID-19 respectively. Since subset of dataset can be chosen directly on the website and downloaded, we choose to include 20 observations, each indicating a month.</p>
+<p>The dataset has 20 rows and 137 columns. One drawback is that there are too many columns and only a small subset of columns are to our interest of analyzing how COVID-19 pandemic affect mobility and transportation. Many such irrelevant columns are about transportation fatalities and government construction spending on all kinds of transportation systems. Therefore, when doing data analyze, we remove those tangent columns and select variables which are closely related to our topic of analysis.</p>
+<p>Below is the visualization of the subset we took.</p>
+<p><img src="finalproj_files/figure-html/transportation%20data-1.png" width="672" /></p>
+<p>The majority of columns are of integer datatypes showing the number of people using various transportation methods, the number of fatalities per mile or construction spending on various transportation ways. The column <code>Date</code> is a date type.</p>
+<p>The open datasets are available for downloading as a <code>.csv</code> file directly from the website. Then we directly read these csv files as dataframes in <code>RStudio</code>.</p>
+</div>
+<div id="dataset-3-covid-19-statistics" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Dataset 3: COVID-19 statistics</h2>
+<p>The <em>COVID-19 statistics</em> dataset is from the <a href="https://cran.r-project.org/web/packages/covid19.analytics/vignettes/covid19.analytics.html"><code>covid19.analytics</code> Package</a>. It provides the time series worldwide data for COVID-19 virus from the JHU’s CCSE repository. For our study, we only select the subset of data where the country is the United States and it provide COVID-19 statistics in the state level.</p>
+<p>Data provides information about the population of getting confirmed or dead due to COVID-19. The dataset has 3277 rows and 14 columns. Below is the visualization of this dataset.</p>
+<p><img src="finalproj_files/figure-html/covid%20data-1.png" width="672" /></p>
+<p>As shown in the graph, the <code>Confirmed</code> and <code>Deaths</code> are integer datatypes, and these are the metrics that we used in our following study. <code>Province_State</code> is a character that indicates the state of the records.</p>
+<p>The open datasets are available in <code>covid19.analytics</code> package and we can directly import the data from the package for further use.</p>
 
+</div>
 </div>
             </section>
 
@@ -138,7 +197,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/02-data.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/edit/main/02-data.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +205,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/02-data.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/blob/main/02-data.Rmd",
 "text": null
 },
 "download": null,

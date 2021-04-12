@@ -9,8 +9,10 @@ With the help of data sets describing people's trip behaviors, transportation pa
 
 ### Contact
 
-Shiyue Liu: sl4835@columbia.edu
-Zhengyi(Skye) Chen: zc2549@columbia.edu
+Shiyue Liu: sl4835@columbia.edu/[Github](https://github.com/ConnieeeeeLIU)
+
+Zhengyi(Skye) Chen: zc2549@columbia.edu/[Github](https://github.com/Skyeczy)
+
 Shengyuan Cao: sc3912@columbia.edu
 
 

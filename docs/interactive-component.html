@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Interactive component | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 6 Interactive component | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 6 Interactive component | Transportation during Pandemic</title>
+  <meta name="description" content="Chapter 6 Interactive component | Transportation during Pandemic" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Interactive component | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 6 Interactive component | Transportation during Pandemic" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Interactive component | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 6 Interactive component | Transportation during Pandemic" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Shengyuan Cao, Zhengyi Chen and Shiyue Liu" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="results.html"/>
 <link rel="next" href="conclusion.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,7 +51,10 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.5/d3.min.js"></script>
+<link href="libs/d3tree3-0.1/d3tree3.css" rel="stylesheet" />
+<script src="libs/d3tree3-binding-0.1/d3tree3.js"></script>
 
 
 
@@ -68,16 +71,43 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">Transportation During Pandemic</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#dataset-1-trips-by-distance"><i class="fa fa-check"></i><b>2.1</b> Dataset 1: Trips by distance</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#dataset-2-transportation"><i class="fa fa-check"></i><b>2.2</b> Dataset 2: Transportation</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#dataset-3-covid-19-statistics"><i class="fa fa-check"></i><b>2.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#dataset1-trips-by-distance"><i class="fa fa-check"></i><b>4.1</b> Dataset1: Trips by distance</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#dataset-2-transportation-data"><i class="fa fa-check"></i><b>4.2</b> Dataset 2: Transportation data</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#dataset-3-covid-19-statistics-1"><i class="fa fa-check"></i><b>4.3</b> Dataset 3: COVID-19 statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#time-series-number-of-daily-trips-people-make-nationally."><i class="fa fa-check"></i><b>5.1</b> Time series: Number of daily trips people make nationally.</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#histogram-trip-length-distribution-before-and-after-covid-19"><i class="fa fa-check"></i><b>5.2</b> Histogram: trip length distribution before and after COVID-19</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#multiple-cleveland-dot-plot-number-of-trips-before-and-after-pandemic-in-state-level"><i class="fa fa-check"></i><b>5.3</b> Multiple Cleveland dot plot: number of trips before and after pandemic in state level</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#scatterplot-overview-of-transportation-and-covid-19"><i class="fa fa-check"></i><b>5.4</b> Scatterplot: Overview of Transportation and CovID-19</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#map-percent-of-people-staying-at-home-during-covid-19-pandemic."><i class="fa fa-check"></i><b>5.5</b> Map: Percent of people staying at home during COVID-19 pandemic.</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#heatmap-of-people-going-out-in-each-state"><i class="fa fa-check"></i><b>5.6</b> Heatmap of people going out in each state</a></li>
+<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#ridgeline-plot-of-daily-new-cases"><i class="fa fa-check"></i><b>5.7</b> Ridgeline plot of daily new cases</a></li>
+<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#treemap-for-top-five-covid-19-severe-states"><i class="fa fa-check"></i><b>5.8</b> Treemap for top five COVID-19 severe states</a></li>
+<li class="chapter" data-level="5.9" data-path="results.html"><a href="results.html#alluvial-chart-showing-type-of-travelling-in-terms-of-distance"><i class="fa fa-check"></i><b>5.9</b> Alluvial chart showing type of travelling in terms of distance</a></li>
+<li class="chapter" data-level="5.10" data-path="results.html"><a href="results.html#boxplot-of-trip-numbers-for-each-county-in-texas"><i class="fa fa-check"></i><b>5.10</b> Boxplot of Trip numbers for each county in Texas</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="conclusion.html"><a href="conclusion.html#main-findings"><i class="fa fa-check"></i><b>7.1</b> Main findings</a></li>
+<li class="chapter" data-level="7.2" data-path="conclusion.html"><a href="conclusion.html#lessons-learned"><i class="fa fa-check"></i><b>7.2</b> Lessons learned</a></li>
+<li class="chapter" data-level="7.3" data-path="conclusion.html"><a href="conclusion.html#limitations-and-future-directions"><i class="fa fa-check"></i><b>7.3</b> Limitations and future directions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -89,7 +119,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transportation during Pandemic</a>
           </h1>
         </div>
 
@@ -99,6 +129,258 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
+<p>As we find that long-distance trips aren’t decreasing as much as other types, we decide to lend D3 to explore more on such kind of trips. Here we use dataset2 containing monthly statistics of some transportation methods suitable for long journeys, such as airline and railway.</p>
+<p>First, we present an animated bar chart demonstrating comparison of total ridership of each method. The initial blue ones represent amounts in the 10 months before outbreak of COVID-19 (2019/05~2020/02) and pink ones for the next 10 months (2020/03~2020/12). With such an animation, we can see how drastically people’s use of public transportation drops. Something special here is that we also include the last two groups (Freight Rail-Intermodal Units (in millions) and Freight Rail-Carloads (in millions)) as a side fact to see how freight transportation changes during pandemic. Interestingly, from the plot we can tell that effct of COVID-19 on freight is not as large as that on our daily travelling life. What’s more, by hovering on the bar you are interested in, you could see the specific number!</p>
+<p>Another thing about this chart is that comparison among different categories is not meaningful. Since dimension of each category is not on the same level, we rescale each category to produce this bar chart. For example, Airline is measure in 10 millions while ridership is in 100 millions. Please be aware of this while reading! For reference, this chart is developed following the tutorial here: <a href="https://dev.to/plebras/want-to-learn-d3-let-s-make-a-bar-chart-3o5n" class="uri">https://dev.to/plebras/want-to-learn-d3-let-s-make-a-bar-chart-3o5n</a></p>
+<style type="text/css">
+        svg{
+            border: solid 1px #222;
+        }
+        svg > g.chart > rect.bar{
+            fill: pink;
+            stroke-width: 1px;
+            stroke: #444;
+            transition: fill 300ms;
+        }
+        svg > g.chart > rect.bar.new{
+            fill: aliceblue;
+        }
+        svg > g.chart > rect.bar.obs{
+            fill: tomato;
+        }
+        svg > g.chart > rect.bar.highlight{
+            fill: gold;
+            stroke-width: 4px;
+        }
+    </style>
+<div id="barContainer">
+
+</div>
+<p>With D3, we also build a line chart with filter, through which we could choose a transportation method to see its time series over the 10 months. By functioning it as an interactive map, this would reduce a lot of area than in a static one and make us more focused on each plot. From this plot, we can get a more intuitive impression of how airline shrinks and how stable the freight traffic is.</p>
+<p>Please also be aware of the different scale here! The measure of each category is slightly different from last section: Airline-International and Airline-Domestic are in 0.1 millions; Ridership - Fixed Route Bus and Ridership - Urban Rail are in millions; Freight-Rail Intermodal Units and Freight-Rail Carloads are in 10 thousands. And this part is developed from d3 gallery: <a href="https://www.d3-graph-gallery.com/graph/line_filter.html" class="uri">https://www.d3-graph-gallery.com/graph/line_filter.html</a></p>
+<select id="selectButton"></select>
+<div id="my_dataviz">
+
+</div>
+<script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script type="text/javascript">
+        // datasets
+        let data1 = [{key: 'Airline-International (10M)', value: 10.1},
+                     {key: 'Airline-Domestic (10M)', value: 71.8},
+                     {key: 'Ridership-Fixed Route Bus (100M)', value: 40.6},
+                     {key: 'Ridership-Urban Rail (100M)', value: 43.3},
+                     {key: 'Freight Rail-Intermodal Units (M)', value: 12.1},
+                     {key: 'Freight Rail-Carloads (M)', value: 11.5}];
+        let data2 = [{key: 'Airline-International (10M)', value: 1.3},
+                     {key: 'Airline-Domestic (10M)', value: 17.6},
+                     {key: 'Ridership-Fixed Route Bus (100M)', value: 14.7},
+                     {key: 'Ridership-Urban Rail (100M)', value: 8.7},
+                     {key: 'Freight Rail-Intermodal Units (M)', value: 10.5},
+                     {key: 'Freight Rail-Carloads (M)', value: 8.5}];
+        // chart dimensions 
+        let width = 600, height = 400, margin = {t:10,b:30,l:180,r:10};
+        // svg element
+        let svg = d3.select('div#barContainer')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .style('border', 'solid 1px #222');
+        // chart area
+        let chart = svg.append('g')
+            .classed('chart', true)
+            .attr('transform', `translate(${margin.l},${margin.t})`);
+        // axes areas
+        let xAxis = svg.append('g')
+            .classed('axis', true)
+            .attr('transform', `translate(${margin.l},${height-margin.b})`);
+        let yAxis = svg.append('g')
+            .classed('axis', true)
+            .attr('transform', `translate(${margin.l},${margin.t})`);
+        // update function
+        function updateData(dataset){
+            // transitions
+            let d = 500;
+            let tRemove = d3.transition()
+                .duration(d);
+            let tPosition = d3.transition()
+                .duration(d)
+                .delay(d);
+            let tSize = d3.transition()
+                .duration(d)
+                .delay(d*2);
+            // scales
+            let xScale = d3.scaleLinear()
+                .domain([0, 75])
+                .range([0, width-margin.l-margin.r]);
+            let yScale = d3.scaleBand()
+                .domain(dataset.map(d=>d.key))
+                .range([0, height-margin.t-margin.b])
+                .padding(0.2);
+            // axes
+            d3.axisBottom(xScale)(xAxis.transition(tSize));
+            d3.axisLeft(yScale)(yAxis.transition(tPosition));
+            // update pattern
+            // initial selection
+            bars = chart.selectAll('rect.bar');
+            // data binding
+            bars = bars.data(dataset, d=>d.key);
+            // exit selection
+            bars.exit()
+                .classed('obs', true)
+                .transition(tRemove)
+                .attr('width', 0)
+                .remove();
+            // enter selection
+            let barsEnter = bars.enter().append('rect')
+                .classed('bar new', true)
+                .attr('x', xScale(0))
+                .on('mouseover', function(e,d){
+                    d3.select(this).classed('highlight', true);
+                })
+                .on('mouseout', function(e,d){
+                    d3.select(this).classed('highlight', false);
+                });
+            // update selection
+            bars.classed('new', false);
+            // enter + update selection
+            bars.merge(barsEnter)
+                .transition(tPosition)
+                .attr('y', d=>yScale(d.key))
+                .attr('height', yScale.bandwidth())
+                .transition(tSize)
+                .attr('width', d=>xScale(d.value));
+            // class reset
+            setTimeout(()=>{bars.merge(barsEnter).classed('new', false)}, d*4)
+            // call tip function
+            setTooltips();
+        }
+        // tip function
+        function setTooltips(){
+            // select the bars
+            bars = chart.selectAll('rect.bar');
+            // set the tooltip content
+            bars.attr('data-tippy-content', (d,i)=>{
+                return `${d.key}: ${d.value}`;
+            });
+            // call tippy on the bars
+            tippy(bars.nodes());
+        }
+        setTimeout(()=>{updateData(data1)}, 2000)
+        setTimeout(()=>{updateData(data2)}, 6000)
+    </script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin2 = {top: 10, right: 30, bottom: 30, left: 60},
+    width2 = 460 - margin2.left - margin2.right,
+    height2 = 400 - margin2.top - margin2.bottom;
+
+// parse the date column
+var parseTime = d3.timeParse("%Y/%m/%d");
+
+// append the svg object to the body of the page
+var svg2 = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width2 + margin2.left + margin2.right)
+    .attr("height", height2 + margin2.top + margin2.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin2.left + "," + margin2.top + ")");
+
+//Read the data
+d3.csv("https://raw.githubusercontent.com/ConnieeeeeLIU/TransportationDuirngPandemic/main/data/clean/monthly_stats_d3.csv", function(data) {
+
+    // call parse time function
+    data.forEach(function(d) {
+      d.date = parseTime(d.date);
+    });
+
+    // List of groups (here I have one group per column)
+    var allGroup = d3.map(data, function(d){return(d.TransportationMethod)}).keys()
+
+    // add the options to the button
+    d3.select("#selectButton")
+      .selectAll('myOptions')
+      .data(allGroup)
+      .enter()
+      .append('option')
+      .text(function (d) { return d; }) // text showed in the menu
+      .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+    // A color scale: one color for each group
+    var myColor = d3.scaleOrdinal()
+      .domain(allGroup)
+      .range(d3.schemeSet2);
+
+    // Add X axis --> it is a date format
+    var x = d3.scaleTime()
+      .domain(d3.extent(data, function(d) { return d.date; }))
+      .range([ 0, width2 ]);
+    svg2.append("g")
+      .attr("transform", "translate(0," + height2 + ")")
+      .call(d3.axisBottom(x).ticks(7));
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+      .domain([0, d3.max(data, function(d) { return +d.Frequency; })])
+      .range([ height2, 0 ]);
+    svg2.append("g")
+      .call(d3.axisLeft(y));
+
+    // Initialize line with first group of the list
+    var line = svg2
+      .append('g')
+      .append("path")
+        .datum(data.filter(function(d){return d.TransportationMethod==allGroup[0]}))
+        .attr("d", d3.line()
+          .x(function(d) { return x(d.date) })
+          .y(function(d) { return y(+d.Frequency) })
+        )
+        .attr("stroke", function(d){ return myColor("valueA") })
+        .style("stroke-width", 4)
+        .style("fill", "none")
+
+    // A function that update the chart
+    function update(selectedGroup) {
+
+      // Create new data with the selection?
+      var dataFilter = data.filter(function(d){return d.TransportationMethod==selectedGroup})
+
+      //let yScale = d3.scaleLinear()
+       //         .domain([0, d3.max(data, function(d) { return +d.Frequency; })])
+       //         .range([height2, 0]);
+       //d3.axisLeft(yScale)(y);
+
+
+      // Give these new data to update line
+      line
+          .datum(dataFilter)
+          .transition()
+          .duration(1000)
+          .attr("d", d3.line()
+            .x(function(d) { return x(d.date) })
+            .y(function(d) { return y(+d.Frequency) })
+          )
+          .attr("stroke", function(d){ return myColor(selectedGroup) })
+    }
+
+    // When the button is changed, run the updateChart function
+    d3.select("#selectButton").on("change", function(d) {
+        // recover the option that has been chosen
+        var selectedOption = d3.select(this).property("value")
+        // run the updateChart function with this selected option
+        update(selectedOption)
+    })
+
+})
+
+
+</script>
 
 </div>
             </section>
@@ -138,7 +420,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/06-interactive.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/edit/main/06-interactive.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -146,7 +428,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/06-interactive.Rmd",
+"link": "https://github.com/ConnieeeeeLIU/TransportationDuirngPandemic/blob/main/06-interactive.Rmd",
 "text": null
 },
 "download": null,
