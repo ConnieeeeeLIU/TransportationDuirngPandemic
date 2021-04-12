@@ -129,11 +129,11 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
-<p>In this section, we present graphs using <code>visdat</code> package(<a href="https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html">visdat</a>) to visual the missing patterns of our data sets. We present visualizations corresponding to each dataset to help readers to have a comprehensive impression on all the data sets.</p>
+<p>In this section, we present graphs using <code>visdat</code> package (<a href="https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html">visdat</a>) to visual the missing patterns of our data sets. We present missing-value visualizations corresponding to each dataset to help readers to have a comprehensive impression on all the data sets.</p>
 <div id="dataset1-trips-by-distance" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Dataset1: Trips by distance</h2>
-<p>As described in section 2, this data set is about the number of trips by distance. First, we show the missing data visualizations. According to the label, the black area indicates the missing value in the data set.</p>
-<p><img src="finalproj_files/figure-html/n2-1.png" width="672" /></p>
+<p>As described in section 2, this data set is about the number of trips by distance. Below we show the missing data visualizations. According to the label, the black area indicates the missing value in the data set.</p>
+<p><img src="finalproj_files/figure-html/n2-1.png" width="1248" /></p>
 <p>The plot shows that all the data for column <code>StateFIPS</code>, <code>State Postal Code</code>, <code>County FIPS</code> and <code>County Name</code> are missing. However, in our project, we do not use these columns hence we can directly omit these columns in our following analysis. For other columns, there are no missing values.</p>
 </div>
 <div id="dataset-2-transportation-data" class="section level2" number="4.2">
@@ -145,7 +145,7 @@
 <div id="dataset-3-covid-19-statistics-1" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Dataset 3: COVID-19 statistics</h2>
 <p>Below is the graph for the missing data situation for COVID-19 data set.</p>
-<p><img src="finalproj_files/figure-html/c2-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/c2-1.png" width="1248" /></p>
 <p>The graph shows that there are missing values in the <code>FIPS</code>, <code>Recovered</code>, <code>Active</code>, <code>Lat</code>, <code>Long_</code>, <code>Incident_Rate</code>, and <code>Case_fatility_ratio</code> have missing values. However, we only used the <code>Confirmed</code> and <code>Deaths</code> columns in the data hence we can omit these columns for our analysis.</p>
 
 </div>
